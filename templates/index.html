@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="explore">
+    <h2>Discover a world of Unlimited reading options</h2>
+    <button class="start-exploring">Start Exploring</button>
+    <div class="book-cards">
+        <!-- Repeat this block for each book -->
+        <div class="book-card">
+            <img src="path_to_image" alt="Book Cover">
+            <h3>Book Title</h3>
+            <p>Author Name</p>
+            <a href="{{ url_for('ebook_details', ebook_id=1) }}">Download</a>
+        </div>
+        <!-- Repeat end -->
+    </div>
+    <button class="join-bookwave">Join BookWave</button>
+</div>
+{% endblock %}
