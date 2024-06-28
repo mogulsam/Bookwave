@@ -178,8 +178,7 @@
                     
                     <div class="row products mini">
 
-
-
+                        
     
                         <div class="item">
                             <div class="media">
@@ -222,7 +221,7 @@
                                 </div>
                                 <div class="hoverable">
                                     <ul>
-                                        <li class="active"><a href="#"><i class="ri-heart-line"></i></a></li>
+                                        <li class="active"><a href=""><i  class="ri-heart-line"></i></a></li>
                                         <li><a href="#"><i class="ri-eye-line"></i></a></li>
                                         <li><a href="#"><i class="ri-shuffle-line"></i></a></li>
                                     </ul>
@@ -1758,7 +1757,17 @@
         </div>
     </div>
   </div>
+
+
+
+
+  <!--Success adding library popup-->
  
+  <div id="popupMessage" class="popup-message"></div>
+
+
+
+
 </main>
 
 <div id="myModal" class="modal">
@@ -1990,6 +1999,146 @@
             
         });
     });
+
+
+
+
+
+     //library book adding
+
+
+     document.addEventListener('DOMContentLoaded', () => {
+        // Function to display popup message
+        function showPopup(message) {
+            const popup = document.getElementById('popupMessage');
+            popup.textContent = message;
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000); // Hide after 3 seconds
+        }
+    
+        // Check if user is logged in
+        const isLoggedIn = () => localStorage.getItem('loggedIn') === 'true';
+    
+        // Add event listener to login modal close button
+        const closeModalButton = document.querySelector('.close-login-modal');
+        if (closeModalButton) {
+            closeModalButton.addEventListener('click', () => {
+                document.getElementById('loginModal').style.display = 'none';
+            });
+        }
+    
+        // Add event listener to login form
+        const loginForm = document.querySelector('#loginModal form');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const username = event.target.username.value;
+                const password = event.target.password.value;
+                if (username === 'user' && password === 'password') {
+                    localStorage.setItem('loggedIn', 'true');
+                    document.getElementById('loginModal').style.display = 'none';
+                } else {
+                    alert('Invalid credentials');
+                }
+            });
+        }
+    
+        // Add event listener to heart icons
+        const heartIcons = document.querySelectorAll('.add-to-library');
+        heartIcons.forEach(icon => {
+            icon.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (!isLoggedIn()) {
+                    document.getElementById('loginModal').style.display = 'block';
+                    return;
+                }
+                const bookLink = icon.closest('.item').querySelector('.book-link');
+                const book = {
+                    title: bookLink.getAttribute('data-title'),
+                    author: bookLink.getAttribute('data-author'),
+                    price: bookLink.getAttribute('data-price'),
+                    rating: bookLink.getAttribute('data-rating'),
+                    downloads: bookLink.getAttribute('data-downloads'),
+                    discount: bookLink.getAttribute('data-discount'),
+                    description: bookLink.getAttribute('data-description'),
+                    image: bookLink.getAttribute('data-image')
+                };
+                addToLibrary(book);
+            });
+        });
+    
+        // Function to add book to library
+        function addToLibrary(book) {
+            let library = JSON.parse(localStorage.getItem('library')) || [];
+            if (!library.some(b => b.title === book.title)) {
+                library.push(book);
+                localStorage.setItem('library', JSON.stringify(library));
+                showPopup('Book added to library');
+            } else {
+                showPopup('Book already in library');
+            }
+        }
+    
+        // Display books in the library
+        const libraryContainer = document.querySelector('.library-container');
+        if (libraryContainer) {
+            let library = JSON.parse(localStorage.getItem('library')) || [];
+            if (library.length === 0) {
+                libraryContainer.innerHTML = '<p>Your library is empty. Books added to your library will appear here.</p>';
+            } else {
+                library.forEach(book => {
+                    const bookItem = document.createElement('div');
+                    bookItem.classList.add('item');
+                    bookItem.innerHTML = `
+                        <div class="media">
+                            <div class="thumbnail object-cover">
+                                <img src="${book.image}" alt="${book.title}">
+                            </div>
+                            <div class="hoverable">
+                                <ul>
+                                    <li class="active"><a href="#" class="add-to-library"><i class="ri-heart-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-eye-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-shuffle-line"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="discount circle flexcenter"><span>${book.discount}</span></div>
+                        </div>
+                        <div class="content">
+                            <h3 class="main-links">${book.title}</h3>
+                            <div class="rating">
+                                <div class="stars"></div>
+                                <span class="mini-text">(${book.rating})</span>
+                            </div>
+                            <div class="price">
+                                <span class="current">${book.price}</span>
+                                <span class="normal mini-text">Ksh 1500</span>
+                            </div>
+                            <div class="mini-text">
+                                <p>${book.downloads} downloads</p>
+                                <p>${book.author}</p>
+                            </div>
+                        </div>
+                    `;
+                    libraryContainer.appendChild(bookItem);
+                });
+            }
+        }
+    });
+
+
+
+
+
+    //SEARCH ITEMS
+
+
+
+   
+   
+    
+    
     
 
 

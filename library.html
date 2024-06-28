@@ -130,8 +130,10 @@
    
 
 
+<!-- Library Page -->
 <div class="library-page">
     <h2>Your Library</h2>
+    <p id="empty-library-notice">Books added to your library will appear here.</p>
     <div class="books-list"></div>
 </div>
 
@@ -158,6 +160,15 @@
         </form>
     </div>
 </div>
+
+
+
+<!-- Popup Message -->
+<div id="popupMessage" class="popup-message"></div>
+
+<!-- Library Container -->
+<div class="library-container"></div>
+
 
     
                         
@@ -402,112 +413,126 @@
     //library book adding
 
 
-
-    const books = [
-    { title: "Harry Potter and the Philosopher's Stone", author: "J.K. Rowling", price: "Ksh 1200", rating: "4.8", downloads: "7000", discount: "20%", description: "Harry Potter and the Philosopher's Stone is the first book in the Harry Potter series by J.K. Rowling, following the magical adventures of a young wizard.", image: "https://images-na.ssl-images-amazon.com/images/I/81YOuOGFCJL.jpg" },
-    { title: "The Hobbit", author: "J.R.R. Tolkien", price: "Ksh 1000", rating: "4.7", downloads: "6500", discount: "15%", description: "The Hobbit is a fantasy novel by J.R.R. Tolkien, telling the story of Bilbo Baggins and his adventurous journey.", image: "https://images-na.ssl-images-amazon.com/images/I/91b0C2YNSrL.jpg" },
-    //  more books here...
-];
-
-const library = JSON.parse(localStorage.getItem('library')) || [];
-const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
-
-document.addEventListener('DOMContentLoaded', () => {
-    const booksList = document.querySelector('.books-list');
-    const libraryList = document.querySelector('.library-page .books-list');
+    document.addEventListener('DOMContentLoaded', () => {
+        // Function to display popup message
+        function showPopup(message) {
+            const popup = document.getElementById('popupMessage');
+            popup.textContent = message;
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000); // Hide after 3 seconds
+        }
     
-    const populateBooks = (books, container) => {
-        container.innerHTML = '';
-        books.forEach(book => {
-            const bookItem = document.createElement('div');
-            bookItem.classList.add('item');
-            bookItem.innerHTML = `
-                <div class="media">
-                    <div class="thumbnail object-cover">
-                        <img src="${book.image}" alt="${book.title}">
-                    </div>
-                    <div class="hoverable">
-                        <ul>
-                            <li class="active"><a href="#" class="add-to-library"><i class="ri-heart-line"></i></a></li>
-                            <li><a href="#" class="view-details"><i class="ri-eye-line"></i></a></li>
-                            <li><a href="#"><i class="ri-shuffle-line"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="discount circle flexcenter"><span>${book.discount}</span></div>
-                </div>
-                <div class="content">
-                    <h3 class="main-links">${book.title}</h3>
-                    <div class="rating">
-                        <div class="stars"></div>
-                        <span class="mini-text">(${book.rating})</span>
-                    </div>
-                    <div class="price">
-                        <span class="current">${book.price}</span>
-                        <span class="normal mini-text">Ksh ${(parseInt(book.price.replace('Ksh ', '')) * 1.2).toFixed(2)}</span>
-                    </div>
-                    <div class="mini-text">
-                        <p>${book.downloads} downloads</p>
-                        <p>${book.author}</p>
-                    </div>
-                </div>
-            `;
-            container.appendChild(bookItem);
+        // Check if user is logged in
+        const isLoggedIn = () => localStorage.getItem('loggedIn') === 'true';
+    
+        // Add event listener to login modal close button
+        const closeModalButton = document.querySelector('.close-login-modal');
+        if (closeModalButton) {
+            closeModalButton.addEventListener('click', () => {
+                document.getElementById('loginModal').style.display = 'none';
+            });
+        }
+    
+        // Add event listener to login form
+        const loginForm = document.querySelector('#loginModal form');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const username = event.target.username.value;
+                const password = event.target.password.value;
+                if (username === 'user' && password === 'password') {
+                    localStorage.setItem('loggedIn', 'true');
+                    document.getElementById('loginModal').style.display = 'none';
+                } else {
+                    alert('Invalid credentials');
+                }
+            });
+        }
+    
+        // Add event listener to heart icons
+        const heartIcons = document.querySelectorAll('.add-to-library');
+        heartIcons.forEach(icon => {
+            icon.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (!isLoggedIn()) {
+                    document.getElementById('loginModal').style.display = 'block';
+                    return;
+                }
+                const bookLink = icon.closest('.item').querySelector('.book-link');
+                const book = {
+                    title: bookLink.getAttribute('data-title'),
+                    author: bookLink.getAttribute('data-author'),
+                    price: bookLink.getAttribute('data-price'),
+                    rating: bookLink.getAttribute('data-rating'),
+                    downloads: bookLink.getAttribute('data-downloads'),
+                    discount: bookLink.getAttribute('data-discount'),
+                    description: bookLink.getAttribute('data-description'),
+                    image: bookLink.getAttribute('data-image')
+                };
+                addToLibrary(book);
+            });
         });
-    };
-
-    populateBooks(books, booksList);
-    populateBooks(library, libraryList);
-
-    document.querySelectorAll('.add-to-library').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!isLoggedIn) {
-                document.getElementById('login-modal').style.display = 'block';
-                return;
-            }
-            const bookTitle = e.target.closest('.item').querySelector('.main-links').innerText;
-            const book = books.find(b => b.title === bookTitle);
+    
+        // Function to add book to library
+        function addToLibrary(book) {
+            let library = JSON.parse(localStorage.getItem('library')) || [];
             if (!library.some(b => b.title === book.title)) {
                 library.push(book);
                 localStorage.setItem('library', JSON.stringify(library));
-                populateBooks(library, libraryList);
+                showPopup('Book added to library');
+            } else {
+                showPopup('Book already in library');
             }
-        });
-    });
-
-    document.querySelectorAll('.view-details').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const bookTitle = e.target.closest('.item').querySelector('.main-links').innerText;
-            const book = books.find(b => b.title === bookTitle);
-            document.getElementById('book-title').innerText = book.title;
-            document.getElementById('book-description').innerText = book.description;
-            document.getElementById('download-btn').onclick = () => { alert('Download PDF of ' + book.title); };
-            document.getElementById('buy-btn').onclick = () => { window.location.href = `https://www.amazon.com/s?k=${book.title}`; };
-            document.getElementById('book-modal').style.display = 'block';
-        });
-    });
-
-    document.querySelectorAll('.close').forEach(btn => {
-        btn.addEventListener('click', () => {
-            btn.parentElement.parentElement.style.display = 'none';
-        });
-    });
-
-    document.getElementById('login-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        if (username === 'user' && password === 'password') {
-            localStorage.setItem('isLoggedIn', JSON.stringify(true));
-            document.getElementById('login-modal').style.display = 'none';
-            alert('Login successful');
-        } else {
-            alert('Invalid credentials');
+        }
+    
+        // Display books in the library
+        const libraryContainer = document.querySelector('.library-container');
+        if (libraryContainer) {
+            let library = JSON.parse(localStorage.getItem('library')) || [];
+            if (library.length === 0) {
+                libraryContainer.innerHTML = '<p>Your library is empty. Books added to your library will appear here.</p>';
+            } else {
+                library.forEach(book => {
+                    const bookItem = document.createElement('div');
+                    bookItem.classList.add('item');
+                    bookItem.innerHTML = `
+                        <div class="media">
+                            <div class="thumbnail object-cover">
+                                <img src="${book.image}" alt="${book.title}">
+                            </div>
+                            <div class="hoverable">
+                                <ul>
+                                    <li class="active"><a href="#" class="add-to-library"><i class="ri-heart-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-eye-line"></i></a></li>
+                                    <li><a href="#"><i class="ri-shuffle-line"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="discount circle flexcenter"><span>${book.discount}</span></div>
+                        </div>
+                        <div class="content">
+                            <h3 class="main-links">${book.title}</h3>
+                            <div class="rating">
+                                <div class="stars"></div>
+                                <span class="mini-text">(${book.rating})</span>
+                            </div>
+                            <div class="price">
+                                <span class="current">${book.price}</span>
+                                <span class="normal mini-text">Ksh 1500</span>
+                            </div>
+                            <div class="mini-text">
+                                <p>${book.downloads} downloads</p>
+                                <p>${book.author}</p>
+                            </div>
+                        </div>
+                    `;
+                    libraryContainer.appendChild(bookItem);
+                });
+            }
         }
     });
-});
-
+    
 
 
 
