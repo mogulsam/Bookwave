@@ -218,3 +218,74 @@ document.addEventListener('DOMContentLoaded', function() {
        
     });
 });
+
+
+
+
+
+//review page
+
+
+
+const books = [
+    { title: "Harry Potter and the Philosopher's Stone" },
+    { title: "The Hobbit" },
+    { title: "Game of Thrones" },
+    { title: "The Name of the Wind" },
+    { title: "Mistborn" }
+];
+
+const searchInput = document.getElementById('searchInput');
+const bookList = document.getElementById('bookList');
+const reviewContainer = document.getElementById('reviewContainer');
+const bookTitle = document.getElementById('bookTitle');
+const reviewForm = document.getElementById('reviewForm');
+const reviewsList = document.getElementById('reviewsList');
+
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    bookList.innerHTML = '';
+    books.filter(book => book.title.toLowerCase().includes(query)).forEach(book => {
+        const li = document.createElement('li');
+        li.textContent = book.title;
+        li.addEventListener('click', () => {
+            displayReviewSection(book.title);
+        });
+        bookList.appendChild(li);
+    });
+});
+
+function displayReviewSection(title) {
+    bookTitle.textContent = title;
+    reviewContainer.style.display = 'block';
+    displayReviews(title);
+}
+
+reviewForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const reviewText = document.getElementById('reviewText').value;
+    const rating = document.getElementById('rating').value;
+    const bookTitle = document.getElementById('bookTitle').textContent;
+    
+    const reviews = JSON.parse(localStorage.getItem('reviews')) || {};
+    if (!reviews[bookTitle]) {
+        reviews[bookTitle] = [];
+    }
+    reviews[bookTitle].push({ review: reviewText, rating: rating });
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+    displayReviews(bookTitle);
+    reviewForm.reset();
+});
+
+function displayReviews(title) {
+    reviewsList.innerHTML = '';
+    const reviews = JSON.parse(localStorage.getItem('reviews')) || {};
+    if (reviews[title]) {
+        reviews[title].forEach(review => {
+            const li = document.createElement('li');
+            li.textContent = `Rating: ${review.rating} - ${review.review}`;
+            reviewsList.appendChild(li);
+        });
+    }
+}
+
