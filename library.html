@@ -18,6 +18,180 @@
             <div class="book-card">Book 4 <button class="download-btn">Download</button></div>
         </div>
     </div>
+
+        <style>
+            /* Styles for the modal */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                padding-top: 60px;
+            }
+    
+            .modal-content {
+                background-color: #fefefe;
+                margin: 5% auto; /* 15% from the top and centered */
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%; /* Could be more or less, depending on screen size */
+                border-radius: 8px;
+            }
+    
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+    
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    
+            .modal-buttons {
+                margin-top: 20px;
+                display: flex;
+                justify-content: space-between;
+            }
+    
+            .modal-buttons button,
+            .modal-buttons a {
+                padding: 10px 20px;
+                border: none;
+                background-color: #007BFF;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+    
+            .modal-buttons a {
+                background-color: #28a745; /* Green */
+            }
+    
+            .modal-buttons a.preview {
+                background-color: #17a2b8; /* Cyan */
+            }
+        </style>
+    </head>
+
+        <!-- Example book item -->
+        <div class="item">
+            <div class="media">
+                <div class="thumbnail object-cover">
+                    <a href="#" class="book-link" data-title="Atomic Habits" data-author="James Clear" data-price="Ksh 200" data-rating="3.5" data-sold="2000" data-discount="31%" data-image="assets/products/apparel2.jpg">
+                        <img src="assets/products/apparel2.jpg" alt="Atomic Habits">
+                    </a>
+                </div>
+            </div>
+            <div class="content">
+                <h3 class="main-links"><a href="#">Atomic Habits</a></h3>
+                <div class="rating">
+                    <div class="stars"></div>
+                    <span class="mini-text">(3.5)</span>
+                </div>
+                <div class="price">
+                    <span class="current">Ksh 200</span>
+                    <span class="normal mini-text">Ksh 260</span>
+                </div>
+                <div class="mini-text">
+                    <p>2000 sold </p>
+                    <p>Author: James Clear</p>
+                </div>
+            </div>
+        </div>
+    
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modal-title">Book Title</h2>
+                <img id="modal-image" src="#" alt="Book Image" style="width: 100%; height: auto;">
+                <p><strong>Author:</strong> <span id="modal-author">Author Name</span></p>
+                <p><strong>Price:</strong> <span id="modal-price">Ksh 0</span></p>
+                <p><strong>Rating:</strong> <span id="modal-rating">0.0</span></p>
+                <p><strong>Sold:</strong> <span id="modal-sold">0</span></p>
+                <p><strong>Discount:</strong> <span id="modal-discount">0%</span></p>
+                <div class="modal-buttons">
+                    <button id="modal-download">Download</button>
+                    <a href="#" id="modal-checkout" class="checkout">Checkout</a>
+                    <a href="#" id="modal-preview" class="preview">Preview</a>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+    
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+    
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+    
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+    
+            // Get all book links
+            var bookLinks = document.querySelectorAll('.book-link');
+    
+            bookLinks.forEach(function(link) {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    
+                    var title = this.getAttribute('data-title');
+                    var author = this.getAttribute('data-author');
+                    var price = this.getAttribute('data-price');
+                    var rating = this.getAttribute('data-rating');
+                    var sold = this.getAttribute('data-sold');
+                    var discount = this.getAttribute('data-discount');
+                    var image = this.getAttribute('data-image');
+    
+                    document.getElementById('modal-title').textContent = title;
+                    document.getElementById('modal-author').textContent = author;
+                    document.getElementById('modal-price').textContent = price;
+                    document.getElementById('modal-rating').textContent = rating;
+                    document.getElementById('modal-sold').textContent = sold;
+                    document.getElementById('modal-discount').textContent = discount;
+                    document.getElementById('modal-image').src = image;
+    
+                    // Set download, checkout, and preview links dynamically
+                    document.getElementById('modal-download').onclick = function() {
+                        alert('Downloading ' + title);
+                    };
+                    document.getElementById('modal-checkout').href = 'checkout.html?book=' + encodeURIComponent(title);
+                    document.getElementById('modal-preview').href = 'preview.html?book=' + encodeURIComponent(title);
+    
+                    modal.style.display = "block";
+                });
+            });
+        </script>
+   
+    
+
+
+
+
+
     <script src="js/scripts.js"></script>
 </body>
 </html>

@@ -116,3 +116,63 @@ window.onload = function() {
 document.querySelector('.modalclose').addEventListener('click', function() {
     document.querySelector('.site').classList.remove('showmodal')
 })
+
+
+
+
+
+//MODAL
+
+
+
+// Get the modal
+var modal = document.getElementById("myModal");
+    
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Get all book links
+var bookLinks = document.querySelectorAll('.book-link');
+
+bookLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        var title = this.getAttribute('data-title');
+        var author = this.getAttribute('data-author');
+        var price = this.getAttribute('data-price');
+        var rating = this.getAttribute('data-rating');
+        var sold = this.getAttribute('data-sold');
+        var discount = this.getAttribute('data-discount');
+        var image = this.getAttribute('data-image');
+
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-author').textContent = author;
+        document.getElementById('modal-price').textContent = price;
+        document.getElementById('modal-rating').textContent = rating;
+        document.getElementById('modal-sold').textContent = sold;
+        document.getElementById('modal-discount').textContent = discount;
+        document.getElementById('modal-image').src = image;
+
+        // Set download, checkout, and preview links dynamically
+        document.getElementById('modal-download').onclick = function() {
+            alert('Downloading ' + title);
+        };
+        document.getElementById('modal-checkout').href = 'checkout.html?book=' + encodeURIComponent(title);
+        document.getElementById('modal-preview').href = 'preview.html?book=' + encodeURIComponent(title);
+
+        modal.style.display = "block";
+    });
+});
