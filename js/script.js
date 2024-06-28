@@ -176,3 +176,45 @@ bookLinks.forEach(function(link) {
         modal.style.display = "block";
     });
 });
+
+
+
+
+
+//SEARCH POP UP
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchLink = document.querySelector('.t-search');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const closeSearch = document.getElementById('closeSearch');
+
+    searchLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        searchOverlay.style.display = 'flex';
+    });
+
+    closeSearch.addEventListener('click', function() {
+        searchOverlay.style.display = 'none';
+    });
+
+    
+    searchOverlay.addEventListener('click', function(e) {
+        if (e.target === searchOverlay) {
+            searchOverlay.style.display = 'none';
+        }
+    });
+
+    // Prevent form submission
+    const searchForm = document.getElementById('searchForm');
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Perform search logic 
+        let searchTerm = document.getElementById('searchInput').value;
+        console.log('Searching for:', searchTerm);
+        // Implement  search functionality
+       
+    });
+});
