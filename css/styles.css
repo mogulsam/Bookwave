@@ -2158,8 +2158,8 @@ body {
 }
 
 .connect-group {
-    width: 35%; /* Fit 2 per screen */
-    margin: 0.2rem;
+    width: 40%; /* Fit 2 per screen */
+    margin: 0.6rem;
 }
 
 .connect-group h2 {
