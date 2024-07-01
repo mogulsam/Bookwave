@@ -1562,7 +1562,7 @@ z-index: 1;
     margin: 15% auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 50%; 
+    width: 70%; 
     display:grid;
    
    
@@ -1906,7 +1906,7 @@ z-index: 1;
 
 @media screen and (min-width: 992px){
     .container{
-        padding: 0 2em;
+        padding: 0;
     }
     .desktop-hide{
         display: none;
@@ -2175,7 +2175,7 @@ z-index: 1;
 
 
 .products.one .flexwrap > .row:last-child > .item {
-    padding-left:0;
+    padding-left: 2em;
 }
 
 /* page category*/
@@ -2207,11 +2207,47 @@ z-index: 1;
     flex: 0 0 33.3333%;
 }
 
+
+
+
+
+
+
+
+
+/*MODAL*/
+
+
+
 .modal h2 {
-    font-size:20px;
+    font-size:18px;
 }
 
 
-
-
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%; 
+    display:flex;
+   
+   
+    
+}
+.modal-content img {
+    width: 100%; 
+    height: auto; 
+    margin-right: auto; 
+}
+.modal-details {
+    display: flex;
+    flex-direction: column;
+}
+.modal-buttons {
+    margin-top: 10px;
+    display: inline;
+    column-gap: 5px;
+    
+}
 }
