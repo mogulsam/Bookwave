@@ -1809,7 +1809,7 @@ z-index: 1;
 
 #searchForm button {
     padding: 10px 20px;
-    background-color: var(--primary-color);
+    background-color: black;
     color: var(--white-color);
     border: none;
     border-radius: 4px;
