@@ -2152,13 +2152,13 @@ body {
 
 
 .connect-container {
-    padding: 0.1rem;
+    padding: 1.1rem;
     display: flex;
     flex-direction: row;
 }
 
 .connect-group {
-    width: 15%; /* Fit 2 per screen */
+    width: 35%; /* Fit 2 per screen */
     margin: 0.2rem;
 }
 
