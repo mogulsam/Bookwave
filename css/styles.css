@@ -1114,6 +1114,16 @@ HEADER - RESPONSIVE MENU OFF CANVAS
     flex-direction: row;
 }
 
+.connect-container p {
+    color: #00000084;
+}
+
+.connect-container h1 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
 .connect-group {
     background-color: #a8c7d161;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -1126,7 +1136,7 @@ HEADER - RESPONSIVE MENU OFF CANVAS
 
 .connect-group h2 {
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 18px;
     color: #333;
 }
 
@@ -1139,8 +1149,6 @@ HEADER - RESPONSIVE MENU OFF CANVAS
 .connect-group p {
     color: #666;
 }
-
-
 
 
 
@@ -1456,29 +1464,35 @@ z-index: 1;
     background-color: var(--light-bg-color);
     display: flex;
     flex-direction: column;
-
-   
 }
 
-.widgets h4{
-    margin-left: 40px;
-    color:var(--links-hover);
+/* Title styling */
+.widgets h4 {
+    margin: 0 0 1em 40px;
+    color: var(--links-hover);
     font-size: 16px;
     font-family: questrial;
 }
 
-.widgets li {
-    font-size:14px;
-    color: #0a021c84;
+/* Navigation item styling */
+.widgets ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em 40px;
     display: flex;
-   
-    
+    flex-direction: column;
 }
 
-.widgets li:hover{
+.widgets li {
+    font-size: 14px;
+    color: #0a021c84;
+    display: flex;
+    margin-bottom: 0.01em;
+}
+
+.widgets li:hover {
     color: #2e0e77;
     transition: .1s ease;
-
     text-decoration: underline;
 }
 
@@ -1662,6 +1676,7 @@ z-index: 1;
     column-gap: 20px;
     font-size: 16px;
     border-radius: 3px;
+    border: none;
     
 }
 
@@ -1672,22 +1687,36 @@ z-index: 1;
 }
 
 .modal-buttons button:hover {
-    background-color:var(--links-hover);
+    background-color:var(--primary-color);
 }
 
 
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+    color: #2e0e77; 
+    float: right; 
+    font-size: 44px; 
+    font-weight: lighter;
+    width: 48px; 
+    height: 48px; 
+    line-height: 48px; 
+    text-align: center;
+    border-radius: 50%; 
+    border: none ; 
+    background-color: #7c899a44; 
+    cursor: pointer; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
 }
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+
+.close:hover {
+    background-color: #5a657188; 
+    color: #fff; 
 }
+
+
+
 
 
 
@@ -1974,20 +2003,20 @@ body {
     
     
     .products.mini .item {
-        margin-bottom: 1em;
+        margin-bottom: 0.6em;
         
        
     }
     
     .products.mini .media {
         width: 120px;
-        height: 140px;
-        margin-right:1.25em ;
+        height: 160px;
+        margin-right:0.25em ;
     }
     
     .products.mini .content {
         margin: 0;
-        gap: 0.75em;
+        gap: 0.25em;
     }
     
     .products:where(.mini,.main) h3 {
@@ -2038,6 +2067,27 @@ body {
 
 
 
+/* WIDGETS*/
+
+
+
+
+.widgets {
+    padding: 1em 0.5em;
+}
+
+.widgets h4 {
+    margin-left: 10px;
+    text-align: left;
+}
+
+.widgets ul {
+    margin-left: 10px;
+}
+
+
+
+
 
     /*MODAL*/
 
@@ -2045,40 +2095,82 @@ body {
 
 .modal h2 {
     font-size:18px;
+    color:var(--primary-color);
 }
 .modal {
-
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; 
-    padding: 20px;
+    margin: 5% auto;
+    padding: 0;
     border: 1px solid #888;
-    width: 90%; 
-    display:flex;
-   
-   
-    
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
+
 .modal-content img {
-    width: 50%; 
-    height: 20%; 
-    margin-left:-10px;
-    margin-right:10px; 
+    width: 130px;
+    height: 150px;
 }
+
 .modal-details {
+    padding: 20px;
     display: flex;
     flex-direction: column;
 }
+
 .modal-buttons {
     margin-top: 10px;
     display: flex;
     column-gap: 5px;
-    
-}
+    justify-content: flex-start;
 }
 
+
+
+
+
+/*CONNECT*/
+
+
+
+
+.connect-container {
+    padding: 1rem;
+}
+
+.connect-group {
+    width: 35%; /* Fit 2 per screen */
+    margin: 0.5rem;
+}
+
+.connect-group h2 {
+    font-size: 16px;
+}
+
+.connect-container h1 {
+    font-size: 24px;
+}
+
+
+
+}
 
 
 
