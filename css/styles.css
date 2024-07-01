@@ -2158,7 +2158,7 @@ body {
 }
 
 .connect-group {
-    width: 40%; /* Fit 2 per screen */
+    width: 30%; /* Fit 2 per screen */
     margin: 0.6rem;
 }
 
