@@ -1559,8 +1559,8 @@ z-index: 1;
     margin: 15% auto; 
     padding: 20px;
     border: 1px solid #888;
-    width: 90%; 
-    display: flex;
+    width: 50%; 
+    display:grid;
    
    
     
