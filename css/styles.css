@@ -2009,9 +2009,9 @@ body {
     }
     
     .products.mini .media {
-        width: 120px;
-        height: 160px;
-        margin-right:0.25em ;
+        width: 90px;
+        height: 130px;
+        margin-right:0.05em ;
     }
     
     .products.mini .content {
@@ -2140,6 +2140,71 @@ body {
     display: flex;
     column-gap: 5px;
     justify-content: flex-start;
+}
+
+.close {
+    color: #2e0e77; 
+    float: right; 
+    font-size: 44px; 
+    font-weight: lighter;
+    width: 48px; 
+    height: 48px; 
+    line-height: 48px; 
+    text-align: center;
+    border-radius: 50%; 
+    border: none ; 
+    background-color: #7c899a44; 
+    cursor: pointer; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+
+/*FILTER*/
+
+
+.filter {
+    display: inline;
+    flex-direction: column;
+    
+    align-items: center;
+    justify-content: center;
+    row-gap: 20px;
+
+   
+   
+}
+
+.filter button {
+    background-color: #ffffff;
+    color:#2e0e77;
+    width: fit-content;
+    border: #7c899a 1px solid;
+    border-radius: 3px;
+    padding: 1em;
+    margin-left: 7px;
+    border-style: double;
+    cursor: pointer;
+    
+
+}
+
+
+.filter button:hover {
+    color: #fefefe;
+    background-color: #0a021c;
+}
+.filter button:active {
+    background-color: #2e0e77;
+}
+
+.filter-links{
+    display:inline;
+
+
 }
 
 
