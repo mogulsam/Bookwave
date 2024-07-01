@@ -2152,7 +2152,9 @@ body {
 
 
 .connect-container {
-    padding: 1rem;
+    padding: 0.1rem;
+    display: flex;
+    flex-direction: row;
 }
 
 .connect-group {
