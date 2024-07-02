@@ -1902,6 +1902,14 @@ z-index: 1;
 
 
 
+.logo img {
+    width: 50% !important;
+    height: auto !important;
+   
+}
+
+
+
 
 
 @media (max-width: 768px) {
@@ -1947,6 +1955,13 @@ z-index: 1;
     .container .overlay.show {
         display: block;
     }
+
+
+
+
+
+
+   
 }
 
 
@@ -2622,7 +2637,11 @@ body {
 }
 
 
-
+.logo img {
+    width:800px !important;
+    height:auto !important;
+   
+}
 
 
 /*big product*/
