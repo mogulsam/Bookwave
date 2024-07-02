@@ -1,3 +1,49 @@
+
+//Menu toggle
+function toggleMenu() {
+    const nav = document.querySelector('.containers nav');
+    nav.classList.toggle('show');
+}
+
+function toggleMenu() {
+    const nav = document.querySelector('.containers nav');
+    const overlay = document.querySelector('.overlay');
+    nav.classList.toggle('show');
+    overlay.classList.toggle('show');
+}
+
+// Close the nav if clicked outside
+document.addEventListener('click', function(event) {
+    const nav = document.querySelector('.containers nav');
+    const overlay = document.querySelector('.overlay');
+    const menuIcon = document.querySelector('.containers .menu-icon');
+
+    if (!nav.contains(event.target) && !menuIcon.contains(event.target)) {
+        nav.classList.remove('show');
+        overlay.classList.remove('show');
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //COPY MENU FOR MOBILE
 
 
