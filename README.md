@@ -6,6 +6,8 @@
 ## Description
 BookWave is a dynamic and interactive platform designed to connect book enthusiasts with personalized book recommendations and vibrant reading communities. Developed as a portfolio project for Holberton School, BookWave leverages modern web technologies to provide a seamless and engaging user experience. Our goal is to foster a love for reading by offering tailored book suggestions and opportunities for readers to join groups and communities of like-minded individuals.
 
+![BookWave Screenshot](DevBook-BS5-v3.0/assets/images/devbook-cover.png)
+
 ## Features
 - **Personalized Recommendations**: Get book suggestions based on your reading preferences and history.
 - **Community Groups**: Join and interact with various book clubs and reading groups on Facebook, Discord, and Reddit.
@@ -15,6 +17,9 @@ BookWave is a dynamic and interactive platform designed to connect book enthusia
 - **Reading Progress Tracker**: Keep track of your reading progress and goals.
 - **Event Notifications**: Stay updated on book-related events, launches, and community meetups.
 - **Secure Transactions**: Buy books directly through the platform with secure payment processing.
+  
+![BookWave Screenshot](DevBook-BS5-v3.0/assets/images/devbook-devices.png)
+
 
 ## Table of Contents
 - [Installation](#installation)
