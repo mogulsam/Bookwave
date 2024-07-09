@@ -16,9 +16,9 @@ import { Pagination } from "swiper/modules";
 const Review = () => {
   return (
     <div className="my-12 px-4 lg:px-24">
-      <h2 className="text-5xl font-bold text-center mb-10 leading-snug">
-        Our Customers
-      </h2>
+      <h4 className="text-5xl font-bold text-center mb-10 leading-snug">
+        Testimonials
+      </h4>
       <div>
         <Swiper
           slidesPerView={1}
@@ -68,8 +68,8 @@ const Review = () => {
                   rounded
                   className="w-10 mb-4"
                 />
-                <h5 className="text-lg font-medium">Allan Ping</h5>
-                <p className="text-base">CEO, Safaricom Kenya</p>
+                <h5 className="text-lg font-medium">Michael </h5>
+                <p className="text-base">Reader, Kenya</p>
               </div>
             </div>
           </SwiperSlide>
@@ -101,8 +101,8 @@ const Review = () => {
                   rounded
                   className="w-10 mb-4"
                 />
-                <h5 className="text-lg font-medium">Allan Ping</h5>
-                <p className="text-base">CEO, Safaricom Kenya</p>
+                <h5 className="text-lg font-medium">Job</h5>
+                <p className="text-base">Book Enthusiast, UG</p>
               </div>
             </div>
           </SwiperSlide>
@@ -131,8 +131,8 @@ const Review = () => {
                   rounded
                   className="w-10 mb-4"
                 />
-                <h5 className="text-lg font-medium">Allan Ping</h5>
-                <p className="text-base">CEO, Safaricom Kenya</p>
+                <h5 className="text-lg font-medium">Allan</h5>
+                <p className="text-base">Bookwave Member</p>
               </div>
             </div>
           </SwiperSlide>
@@ -163,7 +163,7 @@ const Review = () => {
                   className="w-10 mb-4"
                 />
                 <h5 className="text-lg font-medium">Allan Ping</h5>
-                <p className="text-base">CEO, Safaricom Kenya</p>
+                <p className="text-base">Reader, Kenya</p>
               </div>
             </div>
           </SwiperSlide>

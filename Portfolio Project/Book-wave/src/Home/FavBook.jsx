@@ -12,10 +12,8 @@ const FavBook = () => {
           Find Your Favorite <span className="text-red-700">Book Here</span>
         </h2>
         <p className="mb-10 text-lg md-5/6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente quo
-          aperiam velit dolorum recusandae eos id asperiores! Animi corrupti ea
-          architecto labore molestias provident earum! Aut quidem sint
-          reprehenderit quo!
+        At BookWave, our mission is to revolutionize your reading experience. With a vast collection of ebooks, seamless purchasing options,
+         and vibrant reader communities, we provide everything you need to dive into your next great read.
         </p>
         {/*starts*/}
         <div className="flex flex-col sm:flex-row justify-between gap-6 md:w-3/4 my-14 ">

@@ -1,149 +1,100 @@
-import React from "react";
-import profile from "../assets/profile-1.png";
-import dev from "../assets/devbook-cover.png";
+import React from 'react';
+import { FaTwitter, FaGithubAlt, FaMediumM, FaLinkedin } from 'react-icons/fa';
+import ProfilePic1 from "../assets/profile-1.png";
+import ProfilePic2 from "../assets/sammy.png";
+
 const About = () => {
   return (
-    <section className="hero-section">
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-md-7 pt-5 mb-5 align-self-center">
-            <div className="promo pe-md-3 pe-lg-5">
-              <h1 className="headline mb-3">
-                Discover, Purchase, &amp;
-                <br />
-                Enjoy eBooks Easily
-              </h1>
-              <div className="subheadline mb-4">
-                Discover Your Next Great Read!
-              </div>
-              <div className="cta-holder row gx-md-3 gy-3 gy-md-0">
-                <div className="col-12 col-md-auto">
-                  <a className="btn btn-primary w-100" href="../home.html">
-                    Explore
-                  </a>
-                </div>
-                <div className="col-12 col-md-auto">
-                  <a
-                    className="btn btn-secondary scrollto w-100"
-                    href="#benefits-section"
-                  >
-                    Learn More
-                  </a>
-                </div>
-              </div>
-              <div className="hero-quotes mt-5">
-                <div
-                  id="quotes-carousel"
-                  className="quotes-carousel carousel slide carousel-fade mb-5"
-                  data-bs-ride="carousel"
-                  data-bs-interval="8000"
-                >
-                  <div className="carousel-indicators">
-                    <button
-                      type="button"
-                      data-bs-target="#quotes-carousel"
-                      data-bs-slide-to="0"
-                      className="active"
-                      aria-current="true"
-                      aria-label="Slide 1"
-                    ></button>
-                    <button
-                      type="button"
-                      data-bs-target="#quotes-carousel"
-                      data-bs-slide-to="1"
-                      aria-label="Slide 2"
-                    ></button>
-                    <button
-                      type="button"
-                      data-bs-target="#quotes-carousel"
-                      data-bs-slide-to="2"
-                      aria-label="Slide 3"
-                    ></button>
-                  </div>
-                  <div className="carousel-inner">
-                    <div className="carousel-item active">
-                      <blockquote className="quote p-4 theme-bg-light">
-                        "BookWave has completely changed the way I read and
-                        discover new books. The platform is user-friendly, and
-                        the community features have connected me with fellow
-                        readers who share my interests. Highly recommended!"
-                      </blockquote>
-                      <div className="source row gx-md-3 gy-3 gy-md-0 align-items-center">
-                        <div className="col-12 col-md-auto text-center text-md-start">
-                          <img
-                            className="source-profile"
-                            src={profile}
-                            alt="image"
-                          />
-                        </div>
-                        <div className="col source-info text-center text-md-start">
-                          <div className="source-name">Charlotte</div>
-                          <div className="source-title">Reader</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="carousel-item">
-                      <blockquote className="quote p-4 theme-bg-light">
-                        "I love the extensive library on BookWave. From
-                        bestsellers to niche genres, I always find something new
-                        to read. The download process is smooth and secure,
-                        making it easy to access books."
-                      </blockquote>
-                      <div className="source row gx-md-3 gy-3 gy-md-0 align-items-center">
-                        <div className="col-12 col-md-auto text-center text-md-start">
-                          <img
-                            className="source-profile"
-                            src="DevBook-BS5-v3.0/assets/images/profiles/profile-2.png"
-                            alt="image"
-                          />
-                        </div>
-                        <div className="col source-info text-center text-md-start">
-                          <div className="source-name">Samantha</div>
-                          <div className="source-title">Book Enthusiast</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="carousel-item">
-                      <blockquote className="quote p-4 theme-bg-light">
-                        "The 'Connect' page on BookWave is a wonderful feature.
-                        I've joined several book groups on Discord and Reddit
-                        through the platform and have had great discussions
-                        about my favorite books."
-                      </blockquote>
-                      <div className="source row gx-md-3 gy-3 gy-md-0 align-items-center">
-                        <div className="col-12 col-md-auto text-center text-md-start">
-                          <img
-                            className="source-profile"
-                            src="DevBook-BS5-v3.0/assets/images/profiles/profile-3.png"
-                            alt="image"
-                          />
-                        </div>
-                        <div className="col source-info text-center text-md-start">
-                          <div className="source-name">Michael</div>
-                          <div className="source-title">Community Member</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    <section id="about-us-section" className="py-12 bg-whitesmoke-300">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <br />
+          <br />
+          <br />
+          <h2 className="text-4xl font-bold mb-8">About BookWave</h2>
+          <p className="text-lg mb-8">
+            BookWave is more than just an ebook platform. We are passionate
+            about connecting readers with their next great read and fostering a
+            vibrant community around literature.
+          </p>
+          <p className="text-lg mb-8">
+            Our platform offers a curated selection of ebooks across various
+            genres, seamless purchasing and download options, user reviews,
+            personalized recommendations, and interactive features to enhance
+            your reading experience.
+          </p>
+          <p className="text-lg mb-8">
+            Meet the minds behind BookWave:
+          </p>
+        </div>
+        <div className="flex flex-wrap justify-center items-center gap-8">
+          <div className="w-full md:w-1/2 p-4">
+            <div className="bg-gray-100 rounded p-6 flex items-center">
+              <img
+                className="source-profile w-24 h-24 rounded-full mr-6"
+                src={ProfilePic1}
+                alt="Samuel Waweru"
+              />
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Samuel Waweru</h3>
+                <p className="text-gray-600 mb-4">Front-End Developer & Designer</p>
+                <ul className="social-list flex space-x-4">
+                  <li>
+                    <a href="https://x.com/Samu_elKE">
+                      <FaTwitter />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/mogulsam">
+                      <FaGithubAlt />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://medium.com/@samuel-mogul">
+                      <FaMediumM />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.linkedin.com/in/samuel-mogul/">
+                      <FaLinkedin />
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-5 mb-5 align-self-center">
-            <div className="book-cover-holder">
+          <div className="w-full md:w-1/2 p-4">
+            <div className="bg-gray-100 rounded p-6 flex items-center">
               <img
-                className="img-fluid book-cover"
-                src={dev}
-                alt="book cover"
-                style={{ width: "70%", height: "auto" }}
+                className="source-profile w-24 h-24 rounded-full mr-6"
+                src={ProfilePic2}
+                alt="Sammy Obonyo"
               />
-              <div
-                className="book-badge d-inline-block shadow"
-                style={{ backgroundColor: "#ff6b6b", fontSize: "larger" }}
-              >
-                Explore
-                <br />
-                Bookwave
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Sammy Obonyo</h3>
+                <p className="text-gray-600 mb-4">Back-End Developer</p>
+                <ul className="social-list flex space-x-4">
+                  <li>
+                    <a href="https://x.com/obonyo_sammy">
+                      <FaTwitter />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SammyObeezy">
+                      <FaGithubAlt />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://medium.com/@SammyObeezy">
+                      <FaMediumM />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.linkedin.com/in/sammy-obonyo-2a17b91a9/">
+                      <FaLinkedin />
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -152,5 +103,7 @@ const About = () => {
     </section>
   );
 };
+
+
 
 export default About;
