@@ -14,7 +14,7 @@ pageNavLinks.forEach((pageNavLink) => {
 		
 		var target = pageNavLink.getAttribute("href").replace('#', '');
 		
-		//console.log(target);
+		//console.log(target); 
 		
         document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
 

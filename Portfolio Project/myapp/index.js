@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-//mongodb configuration
+//mongodb configuration 
 
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri =
