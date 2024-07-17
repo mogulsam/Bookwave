@@ -262,9 +262,11 @@
                         <div class="item">
                             <div class="media">
                                 <div class="thumbnail object-cover">
-                                    <a href="#" class="book-link" data-title="Thinking, Fast and Slow" data-author="Daniel Kahneman" data-price="Ksh 1100" data-rating="4.7" data-downloads="4000" data-discount="15%" data-description="Thinking, Fast and Slow offers insights into how we think, teaching us to improve our decision-making skills." data-image="assets/thinking fast.jpg">
+                                    <a href="#" class="book-link" data-title="Thinking, Fast and Slow" data-author="Daniel Kahneman" data-price="Ksh 1100" data-rating="4.7" data-downloads="4000" data-discount="15%" data-description="Thinking, Fast and Slow offers insights into how we think, teaching us to improve our decision-making skills." 
+                                    data-image="assets/thinking fast.jpg" data-download="Books/Atomic habits.pdf" data-amazon="https://www.amazon.com/dp/B07YLY3QNS">
                                         <img src="assets/thinking fast.jpg" alt="Thinking, Fast and Slow">
                                     </a>
+                                    
                                 </div>
                                 <div class="hoverable">
                                     <ul>
@@ -1794,17 +1796,14 @@
             <p><strong>Price:</strong> <span id="modal-price">Ksh 0</span></p>
             <p><strong>Rating:</strong> <span id="modal-rating">0.0</span></p>
             <p><strong>Downloads:</strong> <span id="modal-downloads">0</span></p>
-            
             <p><strong>Description:</strong> <span id="modal-description">This is a brief description of the book.</span></p>
             <div class="modal-buttons">
-                <button id="modal-download">Download</button>
-               <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button> 
-
+                <a id="modal-download" href="#" download><button>Download</button></a>
+                <a href="#" id="modal-checkout" class="checkout" target="_blank"><button>Buy Hard copy</button></a>
             </div>
         </div>
     </div>
 </div>
-
 
 
 <footer>
@@ -1951,36 +1950,41 @@
 </footer>
 </div>
 <script>
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
-
-    document.querySelectorAll('.book-link').forEach(function(element) {
-        element.onclick = function(event) {
-            event.preventDefault();
-            document.getElementById('modal-title').textContent = this.getAttribute('data-title');
-            document.getElementById('modal-author').textContent = this.getAttribute('data-author');
-            document.getElementById('modal-price').textContent = this.getAttribute('data-price');
-            document.getElementById('modal-rating').textContent = this.getAttribute('data-rating');
-            document.getElementById('modal-downloads').textContent = this.getAttribute('data-downloads');
-            
-            document.getElementById('modal-description').textContent = this.getAttribute('data-description');
-            document.getElementById('modal-image').src = this.getAttribute('data-image');
-            modal.style.display = "block";
-        };
-    });
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    };
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName('close')[0];
+        var downloadButton = document.getElementById('modal-download');
+        var checkoutButton = document.getElementById('modal-checkout');
+        var bookLinks = document.querySelectorAll('.book-link');
+    
+        bookLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.getElementById('modal-image').src = this.dataset.image;
+                document.getElementById('modal-title').textContent = this.dataset.title;
+                document.getElementById('modal-author').textContent = this.dataset.author;
+                document.getElementById('modal-price').textContent = this.dataset.price;
+                document.getElementById('modal-rating').textContent = this.dataset.rating;
+                document.getElementById('modal-downloads').textContent = this.dataset.downloads;
+                document.getElementById('modal-description').textContent = this.dataset.description;
+                downloadButton.href = this.dataset.download;
+                downloadButton.setAttribute('download', this.dataset.title + ".pdf");
+                checkoutButton.href = this.dataset.amazon;
+                modal.style.display = 'block';
+            });
+        });
+    
+        span.onclick = function() {
+            modal.style.display = 'none';
         }
-    };
-
-
-
+    
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    });
+    
     document.addEventListener('DOMContentLoaded', function() {
         const searchLink = document.querySelector('.t-search');
         const searchOverlay = document.getElementById('searchOverlay');
