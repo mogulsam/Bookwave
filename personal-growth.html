@@ -898,33 +898,40 @@
 </footer>
 </div>
 <script>
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
-
-    document.querySelectorAll('.book-link').forEach(function(element) {
-        element.onclick = function(event) {
-            event.preventDefault();
-            document.getElementById('modal-title').textContent = this.getAttribute('data-title');
-            document.getElementById('modal-author').textContent = this.getAttribute('data-author');
-            document.getElementById('modal-price').textContent = this.getAttribute('data-price');
-            document.getElementById('modal-rating').textContent = this.getAttribute('data-rating');
-            document.getElementById('modal-downloads').textContent = this.getAttribute('data-downloads');
-            
-            document.getElementById('modal-description').textContent = this.getAttribute('data-description');
-            document.getElementById('modal-image').src = this.getAttribute('data-image');
-            modal.style.display = "block";
-        };
-    });
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    };
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName('close')[0];
+        var downloadButton = document.getElementById('modal-download');
+        var checkoutButton = document.getElementById('modal-checkout');
+        var bookLinks = document.querySelectorAll('.book-link');
+    
+        bookLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.getElementById('modal-image').src = this.dataset.image;
+                document.getElementById('modal-title').textContent = this.dataset.title;
+                document.getElementById('modal-author').textContent = this.dataset.author;
+                document.getElementById('modal-price').textContent = this.dataset.price;
+                document.getElementById('modal-rating').textContent = this.dataset.rating;
+                document.getElementById('modal-downloads').textContent = this.dataset.downloads;
+                document.getElementById('modal-description').textContent = this.dataset.description;
+                downloadButton.href = this.dataset.download;
+                downloadButton.setAttribute('download', this.dataset.title + ".pdf");
+                checkoutButton.href = this.dataset.amazon;
+                modal.style.display = 'block';
+            });
+        });
+    
+        span.onclick = function() {
+            modal.style.display = 'none';
         }
-    };
+    
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    });
 
 
 
