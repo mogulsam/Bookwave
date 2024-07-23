@@ -2096,15 +2096,8 @@
     
             downloadLink.click();
     
-            // Monitor the download process
-            let downloadCheckInterval = setInterval(function() {
-                if (document.body.contains(downloadLink)) {
-                    // Download still in progress
-                    return;
-                }
-    
-                // Download completed
-                clearInterval(downloadCheckInterval);
+            // Remove the loader and show success message after a set timeout
+            setTimeout(function() {
                 loadingOverlay.style.display = 'none'; // Hide loading overlay
                 modalContent.classList.remove('blur'); // Remove blur from modal content
                 successMessage.style.display = 'block'; // Show success message
@@ -2112,7 +2105,12 @@
                 setTimeout(function() {
                     successMessage.style.display = 'none'; // Hide success message after 2 seconds
                 }, 2000);
-            }, 500);
+            }, 3000); 
+    
+            // Clean up the link after download starts
+            setTimeout(function() {
+                document.body.removeChild(downloadLink);
+            }, 1000);
         });
     
         // Close the modal if user clicks anywhere outside of the modal content
@@ -2122,6 +2120,7 @@
             }
         });
     });
+    
     
     
 
