@@ -1903,7 +1903,9 @@ z-index: 1;
     margin-top: 20px;
     font-size: 1.5rem;
     text-align: center;
-    
+    justify-content: center;
+    display: flex;
+
 }
 
 /* Modal Blur Effect */
