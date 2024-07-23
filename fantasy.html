@@ -622,7 +622,6 @@
   </div>
  
 </main>
-
 <div id="myModal" class="modal">
     <div class="modal-content">
         <img id="modal-image" src="#" alt="Book Image">
@@ -636,11 +635,22 @@
             <p><strong>Description:</strong> <span id="modal-description">This is a brief description of the book.</span></p>
             <div class="modal-buttons">
                 <button id="modal-download">Download</button>
-                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button> 
-                <div id="loading-spinner" style="display: none;">Loading...</div>
+                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button>
             </div>
         </div>
     </div>
+</div>
+
+<div id="loading-overlay" class="loading-overlay">
+    <div class="loader-container">
+        <div class="loader"></div>
+        <div class="loading-text">Downloading...</div>
+    </div>
+</div>
+
+<div id="success-message" class="success-message">
+    <div class="success-icon">&#10003;</div>
+    <div class="success-text">Download Successful!</div>
 </div>
 
 
