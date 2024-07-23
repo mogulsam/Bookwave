@@ -1840,13 +1840,17 @@
 </div>
 
 <div id="loading-overlay" class="loading-overlay">
-    <div class="loader"></div>
-    <div class="loading-text">Downloading...</div>
+    <div class="loader-container">
+        <div class="loader"></div>
+        <div class="loading-text">Downloading...</div>
+    </div>
 </div>
 
 <div id="success-message" class="success-message">
-    Download successful!
+    <div class="success-icon">&#10003;</div>
+    <div class="success-text">Download Successful!</div>
 </div>
+
 
 
 
@@ -2105,7 +2109,7 @@
                 setTimeout(function() {
                     successMessage.style.display = 'none'; // Hide success message after 2 seconds
                 }, 2000);
-            }, 3000); 
+            }, 3000); // Adjust this timeout to the expected download duration
     
             // Clean up the link after download starts
             setTimeout(function() {

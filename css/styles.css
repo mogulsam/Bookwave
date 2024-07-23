@@ -1840,20 +1840,14 @@ z-index: 1;
 /*LOADING SPINNER*/
 
 
-.loader-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-}
-
+/* Loader Styles */
 .loader {
     border: 4px solid #f3f3f3;
-    border-top: 4px solid #ea5722;
+    border-top: 4px solid #3498db;
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    animation: spin .8s linear infinite;
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -1861,9 +1855,37 @@ z-index: 1;
     100% { transform: rotate(360deg); }
 }
 
+/* Success Message Styles */
+.success-message {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 10000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+    animation: fadeIn 0.5s;
+}
+
+.success-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Loading Overlay */
 .loading-overlay {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
+    position: fixed;
     z-index: 9999; /* Sit on top */
     left: 0;
     top: 0;
@@ -1882,22 +1904,9 @@ z-index: 1;
     font-size: 1.5rem;
 }
 
-.success-message {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 10000;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-    font-size: 1.2rem;
-}
-
+/* Modal Blur Effect */
 .modal-content.blur {
-    filter: blur(1px);
+    filter: blur(2px);
 }
 
 
