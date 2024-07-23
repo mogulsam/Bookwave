@@ -1837,6 +1837,16 @@ z-index: 1;
     
 }
 
+/*LOADING SPINNER*/
+
+
+#loading-spinner {
+    display: none;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    margin-top: 10px;
+}
 
 
 

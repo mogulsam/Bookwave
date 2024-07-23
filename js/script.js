@@ -28,6 +28,32 @@ document.addEventListener('click', function(event) {
 
 
 
+//SPINNER
+
+document.getElementById('modal-download').addEventListener('click', function() {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = currentBook.download; // Ensure this points to the current book's download URL
+    downloadLink.download = currentBook.title;
+    document.body.appendChild(downloadLink);
+    
+    const loadingSpinner = document.getElementById('loading-spinner');
+    loadingSpinner.style.display = 'block'; // Show spinner
+
+    downloadLink.click();
+    
+    // Hide spinner after a short delay to simulate download process. 
+    // Adjust this delay as needed based on your requirements.
+    setTimeout(function() {
+        loadingSpinner.style.display = 'none';
+        document.body.removeChild(downloadLink);
+    }, 3000);
+});
+
+
+
+
+
+
 
 
 
