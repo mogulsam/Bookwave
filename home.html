@@ -1834,11 +1834,15 @@
             <div class="modal-buttons">
                 <button id="modal-download">Download</button>
                 <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button> 
-                <div id="loading-spinner" style="display: none;">Loading...</div>
+                <div id="loading-spinner" class="loader-container" style="display: none;">
+                    <div class="loader"></div>
+                    <div>Loading...</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
@@ -2023,78 +2027,78 @@
     
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById("myModal");
-    const modalImage = document.getElementById("modal-image");
-    const modalTitle = document.getElementById("modal-title");
-    const modalAuthor = document.getElementById("modal-author");
-    const modalPrice = document.getElementById("modal-price");
-    const modalRating = document.getElementById("modal-rating");
-    const modalDownloads = document.getElementById("modal-downloads");
-    const modalDescription = document.getElementById("modal-description");
-    const modalDownload = document.getElementById("modal-download");
-    const modalCheckout = document.getElementById("modal-checkout");
-    const loadingSpinner = document.getElementById('loading-spinner');
-    let currentBook = {};
-
-    document.querySelectorAll('.book-link').forEach(function(link) {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            
-            currentBook = {
-                title: link.getAttribute('data-title'),
-                author: link.getAttribute('data-author'),
-                price: link.getAttribute('data-price'),
-                rating: link.getAttribute('data-rating'),
-                downloads: link.getAttribute('data-downloads'),
-                description: link.getAttribute('data-description'),
-                image: link.getAttribute('data-image'),
-                download: link.getAttribute('data-download'),
-                amazon: link.getAttribute('data-amazon')
-            };
-
-            modalImage.src = currentBook.image;
-            modalTitle.textContent = currentBook.title;
-            modalAuthor.textContent = currentBook.author;
-            modalPrice.textContent = currentBook.price;
-            modalRating.textContent = currentBook.rating;
-            modalDownloads.textContent = currentBook.downloads;
-            modalDescription.textContent = currentBook.description;
-            modalCheckout.href = currentBook.amazon;
-
-            modal.style.display = "block";
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById("myModal");
+        const modalImage = document.getElementById("modal-image");
+        const modalTitle = document.getElementById("modal-title");
+        const modalAuthor = document.getElementById("modal-author");
+        const modalPrice = document.getElementById("modal-price");
+        const modalRating = document.getElementById("modal-rating");
+        const modalDownloads = document.getElementById("modal-downloads");
+        const modalDescription = document.getElementById("modal-description");
+        const modalDownload = document.getElementById("modal-download");
+        const modalCheckout = document.getElementById("modal-checkout");
+        const loadingSpinner = document.getElementById('loading-spinner');
+        let currentBook = {};
+    
+        document.querySelectorAll('.book-link').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                currentBook = {
+                    title: link.getAttribute('data-title'),
+                    author: link.getAttribute('data-author'),
+                    price: link.getAttribute('data-price'),
+                    rating: link.getAttribute('data-rating'),
+                    downloads: link.getAttribute('data-downloads'),
+                    description: link.getAttribute('data-description'),
+                    image: link.getAttribute('data-image'),
+                    download: link.getAttribute('data-download'),
+                    amazon: link.getAttribute('data-amazon')
+                };
+    
+                modalImage.src = currentBook.image;
+                modalTitle.textContent = currentBook.title;
+                modalAuthor.textContent = currentBook.author;
+                modalPrice.textContent = currentBook.price;
+                modalRating.textContent = currentBook.rating;
+                modalDownloads.textContent = currentBook.downloads;
+                modalDescription.textContent = currentBook.description;
+                modalCheckout.href = currentBook.amazon;
+    
+                modal.style.display = "block";
+            });
+        });
+    
+        document.querySelector('.close').addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+    
+        modalDownload.addEventListener('click', function() {
+            const downloadLink = document.createElement('a');
+            downloadLink.href = currentBook.download;
+            downloadLink.download = currentBook.title;
+            document.body.appendChild(downloadLink);
+    
+            loadingSpinner.style.display = 'flex'; // Show spinner and loading text
+    
+            downloadLink.click();
+    
+            // Hide spinner after a short delay to simulate download process.
+            setTimeout(function() {
+                loadingSpinner.style.display = 'none';
+                document.body.removeChild(downloadLink);
+            }, 3000);
+        });
+    
+        // Close the modal if user clicks anywhere outside of the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         });
     });
-
-    document.querySelector('.close').addEventListener('click', function() {
-        modal.style.display = "none";
-    });
-
-    modalDownload.addEventListener('click', function() {
-        const downloadLink = document.createElement('a');
-        downloadLink.href = currentBook.download; // Ensure this points to the current book's download URL
-        downloadLink.download = currentBook.title;
-        document.body.appendChild(downloadLink);
-
-        loadingSpinner.style.display = 'block'; // Show spinner
-
-        downloadLink.click();
-
-        // Hide spinner after a short delay to simulate download process. 
-        // Adjust this delay as needed based on your requirements.
-        setTimeout(function() {
-            loadingSpinner.style.display = 'none';
-            document.body.removeChild(downloadLink);
-        }, 3000);
-    });
-
-    // Close the modal if user clicks anywhere outside of the modal content
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-});
+    
 
     
     document.addEventListener('DOMContentLoaded', function() {
