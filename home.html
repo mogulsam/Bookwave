@@ -1833,14 +1833,19 @@
             <p><strong>Description:</strong> <span id="modal-description">This is a brief description of the book.</span></p>
             <div class="modal-buttons">
                 <button id="modal-download">Download</button>
-                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button> 
-                <div id="loading-spinner" class="loader-container" style="display: none;">
-                    <div class="loader"></div>
-                    <div>Loading...</div>
-                </div>
+                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button>
             </div>
         </div>
     </div>
+</div>
+
+<div id="loading-overlay" class="loading-overlay">
+    <div class="loader"></div>
+    <div class="loading-text">Downloading...</div>
+</div>
+
+<div id="success-message" class="success-message">
+    Download successful!
 </div>
 
 
@@ -2029,6 +2034,7 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById("myModal");
+        const modalContent = modal.querySelector(".modal-content");
         const modalImage = document.getElementById("modal-image");
         const modalTitle = document.getElementById("modal-title");
         const modalAuthor = document.getElementById("modal-author");
@@ -2038,7 +2044,8 @@
         const modalDescription = document.getElementById("modal-description");
         const modalDownload = document.getElementById("modal-download");
         const modalCheckout = document.getElementById("modal-checkout");
-        const loadingSpinner = document.getElementById('loading-spinner');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const successMessage = document.getElementById('success-message');
         let currentBook = {};
     
         document.querySelectorAll('.book-link').forEach(function(link) {
@@ -2080,15 +2087,28 @@
             downloadLink.download = currentBook.title;
             document.body.appendChild(downloadLink);
     
-            loadingSpinner.style.display = 'flex'; // Show spinner and loading text
+            loadingOverlay.style.display = 'flex'; // Show loading overlay
+            modalContent.classList.add('blur'); // Blur modal content
     
             downloadLink.click();
     
-            // Hide spinner after a short delay to simulate download process.
-            setTimeout(function() {
-                loadingSpinner.style.display = 'none';
-                document.body.removeChild(downloadLink);
-            }, 3000);
+            // Monitor the download process
+            let downloadCheckInterval = setInterval(function() {
+                if (document.body.contains(downloadLink)) {
+                    // Download still in progress
+                    return;
+                }
+    
+                // Download completed
+                clearInterval(downloadCheckInterval);
+                loadingOverlay.style.display = 'none'; // Hide loading overlay
+                modalContent.classList.remove('blur'); // Remove blur from modal content
+                successMessage.style.display = 'block'; // Show success message
+    
+                setTimeout(function() {
+                    successMessage.style.display = 'none'; // Hide success message after 2 seconds
+                }, 2000);
+            }, 500);
         });
     
         // Close the modal if user clicks anywhere outside of the modal content
@@ -2098,6 +2118,7 @@
             }
         });
     });
+    
     
 
     
