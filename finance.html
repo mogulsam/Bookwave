@@ -836,8 +836,11 @@
 
 
 
-    document.addEventListener('DOMContentLoaded', function() {
+     //Modal & Download
+
+     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById("myModal");
+        const modalContent = modal.querySelector(".modal-content");
         const modalImage = document.getElementById("modal-image");
         const modalTitle = document.getElementById("modal-title");
         const modalAuthor = document.getElementById("modal-author");
@@ -847,8 +850,13 @@
         const modalDescription = document.getElementById("modal-description");
         const modalDownload = document.getElementById("modal-download");
         const modalCheckout = document.getElementById("modal-checkout");
-        const loadingSpinner = document.getElementById('loading-spinner');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const successMessage = document.getElementById('success-message');
         let currentBook = {};
+    
+        // Hide overlay and success message on load
+        loadingOverlay.style.display = 'none';
+        successMessage.style.display = 'none';
     
         document.querySelectorAll('.book-link').forEach(function(link) {
             link.addEventListener('click', function(event) {
@@ -885,20 +893,30 @@
     
         modalDownload.addEventListener('click', function() {
             const downloadLink = document.createElement('a');
-            downloadLink.href = currentBook.download; 
+            downloadLink.href = currentBook.download;
             downloadLink.download = currentBook.title;
             document.body.appendChild(downloadLink);
     
-            loadingSpinner.style.display = 'block'; // Show spinner
+            loadingOverlay.style.display = 'flex'; // Show loading overlay
+            modalContent.classList.add('blur'); // Blur modal content
     
             downloadLink.click();
     
-            // Hide spinner after a short delay to simulate download process. 
-            
+            // Remove the loader and show success message after a set timeout
             setTimeout(function() {
-                loadingSpinner.style.display = 'none';
+                loadingOverlay.style.display = 'none'; // Hide loading overlay
+                modalContent.classList.remove('blur'); // Remove blur from modal content
+                successMessage.style.display = 'block'; // Show success message
+    
+                setTimeout(function() {
+                    successMessage.style.display = 'none'; // Hide success message after 2 seconds
+                }, 2000);
+            }, 1000); //  download duration
+    
+            // Clean up the link after download starts
+            setTimeout(function() {
                 document.body.removeChild(downloadLink);
-            }, 3000);
+            }, 1000);
         });
     
         // Close the modal if user clicks anywhere outside of the modal content
@@ -908,7 +926,6 @@
             }
         });
     });
-
     document.addEventListener('DOMContentLoaded', function() {
         const searchLink = document.querySelector('.t-search');
         const searchOverlay = document.getElementById('searchOverlay');
