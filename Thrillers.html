@@ -191,6 +191,7 @@
                                     <a href="#" class="book-link"
                                        data-title="The Girl with the Dragon Tattoo"
                                        data-author="Stieg Larsson"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 650"
                                        data-rating="4.4"
                                        data-downloads="12000"
@@ -232,6 +233,7 @@
                                     <a href="#" class="book-link"
                                        data-title="Gone Girl"
                                        data-author="Gillian Flynn"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 620"
                                        data-rating="4.2"
                                        data-downloads="11000"
@@ -274,6 +276,7 @@
                                        data-title="The Silent Patient"
                                        data-author="Alex Michaelides"
                                        data-price="Ksh 690"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.3"
                                        data-downloads="13000"
                                        data-discount="10%"
@@ -314,6 +317,7 @@
                                     <a href="#" class="book-link"
                                        data-title="The Woman in the Window"
                                        data-author="A.J. Finn"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 670"
                                        data-rating="4.1"
                                        data-downloads="10000"
@@ -356,6 +360,7 @@
                                        data-title="Before I Go to Sleep"
                                        data-author="S.J. Watson"
                                        data-price="Ksh 630"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.0"
                                        data-downloads="9000"
                                        data-discount="14%"
@@ -399,6 +404,7 @@
                                        data-price="Ksh 640"
                                        data-rating="4.1"
                                        data-downloads="9500"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-discount="12%"
                                        data-description="A psychological thriller about a woman who becomes entangled in a missing person's investigation."
                                        data-image="https://wordsoffiction.co.ke/wp-content/uploads/2021/03/5312.jpg">
@@ -437,6 +443,7 @@
                                     <a href="#" class="book-link"
                                        data-title="The Da Vinci Code"
                                        data-author="Dan Brown"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 660"
                                        data-rating="4.3"
                                        data-downloads="12500"
@@ -478,6 +485,7 @@
                                     <a href="#" class="book-link"
                                        data-title="Sharp Objects"
                                        data-author="Gillian Flynn"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 620"
                                        data-rating="4.0"
                                        data-downloads="8800"
@@ -519,6 +527,7 @@
                                     <a href="#" class="book-link"
                                        data-title="The Couple Next Door"
                                        data-author="Shari Lapena"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 630"
                                        data-rating="4.1"
                                        data-downloads="9200"
@@ -561,6 +570,7 @@
                                        data-title="The Silent Corner"
                                        data-author="Dean Koontz"
                                        data-price="Ksh 640"
+                                       data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.2"
                                        data-downloads="9800"
                                        data-discount="11%"
@@ -623,16 +633,16 @@
             <p><strong>Price:</strong> <span id="modal-price">Ksh 0</span></p>
             <p><strong>Rating:</strong> <span id="modal-rating">0.0</span></p>
             <p><strong>Downloads:</strong> <span id="modal-downloads">0</span></p>
-            
             <p><strong>Description:</strong> <span id="modal-description">This is a brief description of the book.</span></p>
             <div class="modal-buttons">
-                <button id="modal-download">Download</button>
-               <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button> 
-
+                <a id="modal-download" href="#" download><button>Download</button></a>
+                <a href="#" id="modal-checkout" class="checkout" target="_blank"><button>Buy Hard copy</button></a>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 
@@ -653,7 +663,7 @@
     </div>
 </div>
 
-<!--Newsletter-->
+<!--Newsletter///-->
 
 <div class="widgets">
     <div class="flexwrap">
@@ -813,7 +823,7 @@
             }
         }
     });
-
+    
 
     document.addEventListener('DOMContentLoaded', function() {
         const searchLink = document.querySelector('.t-search');
