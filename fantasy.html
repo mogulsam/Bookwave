@@ -193,8 +193,10 @@
                                        data-rating="4.8"
                                        data-downloads="7000"
                                        data-discount="20%"
+                                        data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-description="Harry Potter and the Philosopher's Stone is the first book in the Harry Potter series by J.K. Rowling, following the magical adventures of a young wizard."
                                        data-image="assets/harry potter.png">
+
                                         <img src="assets/harry potter.png" alt="Harry Potter and the Philosopher's Stone">
                                     </a>
                                 </div>
@@ -231,9 +233,11 @@
                                        data-title="The Hobbit"
                                        data-author="J.R.R. Tolkien"
                                        data-price="Ksh 1000"
+                                         data-download="Books\the_hobbit_tolkien.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.7"
                                        data-downloads="6000"
                                        data-discount="15%"
+                                
                                        data-description="The Hobbit is a fantasy novel by J.R.R. Tolkien, introducing the world of Middle-earth and the adventures of Bilbo Baggins."
                                        data-image="assets/hobbit.jpeg">
                                         <img src="assets/hobbit.jpeg" alt="The Hobbit">
@@ -274,6 +278,7 @@
                                        data-price="Ksh 1300"
                                        data-rating="4.8"
                                        data-downloads="5000"
+                                         data-download="Books\The-Name-of-the-Wind.pdf" data-amazon="https://www.amazon.com/"
                                        data-discount="20%"
                                        data-description="The Name of the Wind is a fantasy novel by Patrick Rothfuss, telling the story of Kvothe, a magically gifted young man."
                                        data-image="assets/name-of-wind.jpg">
@@ -314,6 +319,7 @@
                                        data-author="Brandon Sanderson"
                                        data-price="Ksh 1500"
                                        data-rating="4.9"
+                                         data-download="Books\The-Way-of-Kings.pdf" data-amazon="https://www.amazon.com/"
                                        data-downloads="4500"
                                        data-discount="25%"
                                        data-description="The Way of Kings is an epic fantasy novel by Brandon Sanderson, part of The Stormlight Archive series."
@@ -356,6 +362,7 @@
                                        data-price="Ksh 1200"
                                        data-rating="4.8"
                                        data-downloads="5000"
+                                         data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-discount="20%"
                                        data-description="Mistborn: The Final Empire is a fantasy novel by Brandon Sanderson, the first in the Mistborn series."
                                        data-image="assets/mistborn.jpg">
@@ -395,6 +402,7 @@
                                        data-title="A Game of Thrones"
                                        data-author="George R.R. Martin"
                                        data-price="Ksh 1100"
+                                         data-download="Books\game of thrones.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.7"
                                        data-downloads="5500"
                                        data-discount="18%"
@@ -438,6 +446,7 @@
                                        data-price="Ksh 900"
                                        data-rating="4.6"
                                        data-downloads="4000"
+                                         data-download="Books\Harry Potter and the Sorcerers Stone.pdf" data-amazon="https://www.amazon.com/"
                                        data-discount="20%"
                                        data-description="The Lies of Locke Lamora is a fantasy novel by Scott Lynch, following the adventures of a skilled thief in the city of Camorr."
                                        data-image="assets/lamora.jpeg">
@@ -478,6 +487,7 @@
                                        data-author="Joe Abercrombie"
                                        data-price="Ksh 1100"
                                        data-rating="4.5"
+                                         data-download="Books\TheBladeItself-.pdf" data-amazon="https://www.amazon.com/"
                                        data-downloads="3500"
                                        data-discount="10%"
                                        data-description="The Blade Itself is a gritty fantasy novel by Joe Abercrombie, the first in The First Law trilogy."
@@ -518,6 +528,7 @@
                                        data-title="Eragon"
                                        data-author="Christopher Paolini"
                                        data-price="Ksh 900"
+                                         data-download="Books\eragon.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.4"
                                        data-downloads="4500"
                                        data-discount="15%"
@@ -561,6 +572,7 @@
                                        data-price="Ksh 1400"
                                        data-rating="4.7"
                                        data-downloads="3000"
+                                         data-download="Books\The Priory of the orange tree.pdf" data-amazon="https://www.amazon.com/"
                                        data-discount="18%"
                                        data-description="The Priory of the Orange Tree is a standalone fantasy novel by Samantha Shannon, featuring an epic battle between dragons and humans."
                                        data-image="assets/orange.jpeg">
@@ -610,7 +622,6 @@
   </div>
  
 </main>
-
 <div id="myModal" class="modal">
     <div class="modal-content">
         <img id="modal-image" src="#" alt="Book Image">
@@ -621,16 +632,28 @@
             <p><strong>Price:</strong> <span id="modal-price">Ksh 0</span></p>
             <p><strong>Rating:</strong> <span id="modal-rating">0.0</span></p>
             <p><strong>Downloads:</strong> <span id="modal-downloads">0</span></p>
-            
             <p><strong>Description:</strong> <span id="modal-description">This is a brief description of the book.</span></p>
             <div class="modal-buttons">
                 <button id="modal-download">Download</button>
-               <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button> 
-
+                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button>
             </div>
         </div>
     </div>
 </div>
+
+<div id="loading-overlay" class="loading-overlay">
+    <div class="loader-container">
+        <div class="loader"></div>
+        <div class="loading-text">Downloading...</div>
+    </div>
+</div>
+
+<div id="success-message" class="success-message">
+    <div class="success-icon">&#10003;</div>
+    <div class="success-text">Download Successful!</div>
+</div>
+
+
 
 
 
@@ -811,6 +834,99 @@
             }
         }
     });
+    //Modal & Download
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById("myModal");
+        const modalContent = modal.querySelector(".modal-content");
+        const modalImage = document.getElementById("modal-image");
+        const modalTitle = document.getElementById("modal-title");
+        const modalAuthor = document.getElementById("modal-author");
+        const modalPrice = document.getElementById("modal-price");
+        const modalRating = document.getElementById("modal-rating");
+        const modalDownloads = document.getElementById("modal-downloads");
+        const modalDescription = document.getElementById("modal-description");
+        const modalDownload = document.getElementById("modal-download");
+        const modalCheckout = document.getElementById("modal-checkout");
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const successMessage = document.getElementById('success-message');
+        let currentBook = {};
+    
+        // Hide overlay and success message on load
+        loadingOverlay.style.display = 'none';
+        successMessage.style.display = 'none';
+    
+        document.querySelectorAll('.book-link').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                currentBook = {
+                    title: link.getAttribute('data-title'),
+                    author: link.getAttribute('data-author'),
+                    price: link.getAttribute('data-price'),
+                    rating: link.getAttribute('data-rating'),
+                    downloads: link.getAttribute('data-downloads'),
+                    description: link.getAttribute('data-description'),
+                    image: link.getAttribute('data-image'),
+                    download: link.getAttribute('data-download'),
+                    amazon: link.getAttribute('data-amazon')
+                };
+    
+                modalImage.src = currentBook.image;
+                modalTitle.textContent = currentBook.title;
+                modalAuthor.textContent = currentBook.author;
+                modalPrice.textContent = currentBook.price;
+                modalRating.textContent = currentBook.rating;
+                modalDownloads.textContent = currentBook.downloads;
+                modalDescription.textContent = currentBook.description;
+                modalCheckout.href = currentBook.amazon;
+    
+                modal.style.display = "block";
+            });
+        });
+    
+        document.querySelector('.close').addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+    
+        modalDownload.addEventListener('click', function() {
+            const downloadLink = document.createElement('a');
+            downloadLink.href = currentBook.download;
+            downloadLink.download = currentBook.title;
+            document.body.appendChild(downloadLink);
+    
+            loadingOverlay.style.display = 'flex'; // Show loading overlay
+            modalContent.classList.add('blur'); // Blur modal content
+    
+            downloadLink.click();
+    
+            // Remove the loader and show success message after a set timeout
+            setTimeout(function() {
+                loadingOverlay.style.display = 'none'; // Hide loading overlay
+                modalContent.classList.remove('blur'); // Remove blur from modal content
+                successMessage.style.display = 'block'; // Show success message
+    
+                setTimeout(function() {
+                    successMessage.style.display = 'none'; // Hide success message after 2 seconds
+                }, 2000);
+            }, 1000); //  download duration
+    
+            // Clean up the link after download starts
+            setTimeout(function() {
+                document.body.removeChild(downloadLink);
+            }, 1000);
+        });
+    
+        // Close the modal if user clicks anywhere outside of the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
+
+
+
 
     document.addEventListener('DOMContentLoaded', function() {
         const searchLink = document.querySelector('.t-search');

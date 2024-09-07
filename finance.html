@@ -189,6 +189,7 @@
                                     <a href="#" class="book-link"
                                        data-title="Rich Dad Poor Dad"
                                        data-author="Robert T. Kiyosaki"
+                                       data-download="Books\Rich Dad Poor Dad.pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 800"
                                        data-rating="4.7"
                                        data-downloads="8000"
@@ -232,6 +233,7 @@
                                        data-author="Dave Ramsey"
                                        data-price="Ksh 900"
                                        data-rating="4.8"
+                                       data-download="Books\The Total Money Makeover - Dave Ramsey.pdf" data-amazon="https://www.amazon.com/"
                                        data-downloads="6000"
                                        data-discount="25%"
                                        data-description="The Total Money Makeover is a personal finance book by Dave Ramsey that offers practical steps to achieve financial health."
@@ -272,6 +274,7 @@
                                        data-title="Your Money or Your Life"
                                        data-author="Vicki Robin & Joe Dominguez"
                                        data-price="Ksh 700"
+                                       data-download="Books\Your money , your life.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.6"
                                        data-downloads="5000"
                                        data-discount="15%"
@@ -315,6 +318,7 @@
                                        data-price="Ksh 850"
                                        data-rating="4.7"
                                        data-downloads="4000"
+                                       data-download="Books\The Millionaire Next Door.pdf" data-amazon="https://www.amazon.com/"
                                        data-discount="20%"
                                        data-description="The Millionaire Next Door is a personal finance book by Thomas J. Stanley and William D. Danko that explores the habits of America's wealthy."
                                        data-image="https://m.media-amazon.com/images/I/81Bte4GAYtL._AC_UF1000,1000_QL80_.jpg">
@@ -353,6 +357,7 @@
                                     <a href="#" class="book-link"
                                        data-title="I Will Teach You to Be Rich"
                                        data-author="Ramit Sethi"
+                                       data-download="Books\I-Will-Teach-You-To-Be-Rich_Chapter1 (1).pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 950"
                                        data-rating="4.8"
                                        data-downloads="4500"
@@ -394,6 +399,7 @@
                                     <a href="#" class="book-link"
                                        data-title="The Intelligent Investor"
                                        data-author="Benjamin Graham"
+                                       data-download="Books\The Intelligent Investor - BENJAMIN GRAHAM.pdf" data-amazon="https://www.amazon.com/"
                                        data-price="Ksh 1000"
                                        data-rating="4.7"
                                        data-downloads="7000"
@@ -438,6 +444,7 @@
                                        data-price="Ksh 700"
                                        data-rating="4.7"
                                        data-downloads="8000"
+                                       data-download="Books\Think-And-Grow-Rich.pdf" data-amazon="https://www.amazon.com/"
                                        data-discount="20%"
                                        data-description="Think and Grow Rich is a personal finance book by Napoleon Hill that offers timeless advice on building wealth through personal development."
                                        data-image="https://m.media-amazon.com/images/I/71UypkUjStL.jpg">
@@ -477,6 +484,7 @@
                                        data-title="The Richest Man in Babylon"
                                        data-author="George S. Clason"
                                        data-price="Ksh 600"
+                                       data-download="Books\RichestManInBabylon.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.5"
                                        data-downloads="7500"
                                        data-discount="10%"
@@ -519,6 +527,7 @@
                                        data-author="Grant Sabatier"
                                        data-price="Ksh 1200"
                                        data-rating="4.6"
+                                       data-download="Books\Financial-Freedom-Grant-Sabatier.pdf" data-amazon="https://www.amazon.com/"
                                        data-downloads="4000"
                                        data-discount="15%"
                                        data-description="Financial Freedom is a personal finance book by Grant Sabatier that provides a blueprint for achieving financial independence in less than five years."
@@ -559,6 +568,7 @@
                                        data-title="The Simple Path to Wealth"
                                        data-author="JL Collins"
                                        data-price="Ksh 950"
+                                       data-download="Books\Preview-The-Simple-Path-to-Wealth-by-JL-Collins.pdf" data-amazon="https://www.amazon.com/"
                                        data-rating="4.8"
                                        data-downloads="5500"
                                        data-discount="20%"
@@ -622,16 +632,28 @@
             <p><strong>Price:</strong> <span id="modal-price">Ksh 0</span></p>
             <p><strong>Rating:</strong> <span id="modal-rating">0.0</span></p>
             <p><strong>Downloads:</strong> <span id="modal-downloads">0</span></p>
-            
             <p><strong>Description:</strong> <span id="modal-description">This is a brief description of the book.</span></p>
             <div class="modal-buttons">
                 <button id="modal-download">Download</button>
-               <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button> 
-
+                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button>
             </div>
         </div>
     </div>
 </div>
+
+<div id="loading-overlay" class="loading-overlay">
+    <div class="loader-container">
+        <div class="loader"></div>
+        <div class="loading-text">Downloading...</div>
+    </div>
+</div>
+
+<div id="success-message" class="success-message">
+    <div class="success-icon">&#10003;</div>
+    <div class="success-text">Download Successful!</div>
+</div>
+
+
 
 
 
@@ -813,6 +835,98 @@
     });
 
 
+
+
+     //Modal & Download
+
+     document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById("myModal");
+        const modalContent = modal.querySelector(".modal-content");
+        const modalImage = document.getElementById("modal-image");
+        const modalTitle = document.getElementById("modal-title");
+        const modalAuthor = document.getElementById("modal-author");
+        const modalPrice = document.getElementById("modal-price");
+        const modalRating = document.getElementById("modal-rating");
+        const modalDownloads = document.getElementById("modal-downloads");
+        const modalDescription = document.getElementById("modal-description");
+        const modalDownload = document.getElementById("modal-download");
+        const modalCheckout = document.getElementById("modal-checkout");
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const successMessage = document.getElementById('success-message');
+        let currentBook = {};
+    
+        // Hide overlay and success message on load
+        loadingOverlay.style.display = 'none';
+        successMessage.style.display = 'none';
+    
+        document.querySelectorAll('.book-link').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                currentBook = {
+                    title: link.getAttribute('data-title'),
+                    author: link.getAttribute('data-author'),
+                    price: link.getAttribute('data-price'),
+                    rating: link.getAttribute('data-rating'),
+                    downloads: link.getAttribute('data-downloads'),
+                    description: link.getAttribute('data-description'),
+                    image: link.getAttribute('data-image'),
+                    download: link.getAttribute('data-download'),
+                    amazon: link.getAttribute('data-amazon')
+                };
+    
+                modalImage.src = currentBook.image;
+                modalTitle.textContent = currentBook.title;
+                modalAuthor.textContent = currentBook.author;
+                modalPrice.textContent = currentBook.price;
+                modalRating.textContent = currentBook.rating;
+                modalDownloads.textContent = currentBook.downloads;
+                modalDescription.textContent = currentBook.description;
+                modalCheckout.href = currentBook.amazon;
+    
+                modal.style.display = "block";
+            });
+        });
+    
+        document.querySelector('.close').addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+    
+        modalDownload.addEventListener('click', function() {
+            const downloadLink = document.createElement('a');
+            downloadLink.href = currentBook.download;
+            downloadLink.download = currentBook.title;
+            document.body.appendChild(downloadLink);
+    
+            loadingOverlay.style.display = 'flex'; // Show loading overlay
+            modalContent.classList.add('blur'); // Blur modal content
+    
+            downloadLink.click();
+    
+            // Remove the loader and show success message after a set timeout
+            setTimeout(function() {
+                loadingOverlay.style.display = 'none'; // Hide loading overlay
+                modalContent.classList.remove('blur'); // Remove blur from modal content
+                successMessage.style.display = 'block'; // Show success message
+    
+                setTimeout(function() {
+                    successMessage.style.display = 'none'; // Hide success message after 2 seconds
+                }, 2000);
+            }, 1000); //  download duration
+    
+            // Clean up the link after download starts
+            setTimeout(function() {
+                document.body.removeChild(downloadLink);
+            }, 1000);
+        });
+    
+        // Close the modal if user clicks anywhere outside of the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    });
     document.addEventListener('DOMContentLoaded', function() {
         const searchLink = document.querySelector('.t-search');
         const searchOverlay = document.getElementById('searchOverlay');

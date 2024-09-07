@@ -361,3 +361,330 @@ function displayReviews(title) {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('myModal');
+    var span = document.getElementsByClassName('close')[0];
+    var downloadButton = document.getElementById('modal-download');
+    var checkoutButton = document.getElementById('modal-checkout');
+    var bookLinks = document.querySelectorAll('.book-link');
+
+    bookLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('modal-image').src = this.dataset.image;
+            document.getElementById('modal-title').textContent = this.dataset.title;
+            document.getElementById('modal-author').textContent = this.dataset.author;
+            document.getElementById('modal-price').textContent = this.dataset.price;
+            document.getElementById('modal-rating').textContent = this.dataset.rating;
+            document.getElementById('modal-downloads').textContent = this.dataset.downloads;
+            document.getElementById('modal-description').textContent = this.dataset.description;
+            downloadButton.href = this.dataset.download;
+            downloadButton.setAttribute('download', this.dataset.title + ".pdf");
+            checkoutButton.href = this.dataset.amazon;
+            modal.style.display = 'block';
+        });
+    });
+
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById("myModal");
+    const modalContent = modal.querySelector(".modal-content");
+    const modalImage = document.getElementById("modal-image");
+    const modalTitle = document.getElementById("modal-title");
+    const modalAuthor = document.getElementById("modal-author");
+    const modalPrice = document.getElementById("modal-price");
+    const modalRating = document.getElementById("modal-rating");
+    const modalDownloads = document.getElementById("modal-downloads");
+    const modalDescription = document.getElementById("modal-description");
+    const modalDownload = document.getElementById("modal-download");
+    const modalCheckout = document.getElementById("modal-checkout");
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const successMessage = document.getElementById('success-message');
+    let currentBook = {};
+
+    // Hide overlay and success message on load
+    loadingOverlay.style.display = 'none';
+    successMessage.style.display = 'none';
+
+    document.querySelectorAll('.book-link').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            currentBook = {
+                title: link.getAttribute('data-title'),
+                author: link.getAttribute('data-author'),
+                price: link.getAttribute('data-price'),
+                rating: link.getAttribute('data-rating'),
+                downloads: link.getAttribute('data-downloads'),
+                description: link.getAttribute('data-description'),
+                image: link.getAttribute('data-image'),
+                download: link.getAttribute('data-download'),
+                amazon: link.getAttribute('data-amazon')
+            };
+
+            modalImage.src = currentBook.image;
+            modalTitle.textContent = currentBook.title;
+            modalAuthor.textContent = currentBook.author;
+            modalPrice.textContent = currentBook.price;
+            modalRating.textContent = currentBook.rating;
+            modalDownloads.textContent = currentBook.downloads;
+            modalDescription.textContent = currentBook.description;
+            modalCheckout.href = currentBook.amazon;
+
+            modal.style.display = "block";
+        });
+    });
+
+    document.querySelector('.close').addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+
+    modalDownload.addEventListener('click', function() {
+        const downloadLink = document.createElement('a');
+        downloadLink.href = currentBook.download;
+        downloadLink.download = currentBook.title;
+        document.body.appendChild(downloadLink);
+
+        loadingOverlay.style.display = 'flex'; // Show loading overlay
+        modalContent.classList.add('blur'); // Blur modal content
+
+        downloadLink.click();
+
+        // Remove the loader and show success message after a set timeout
+        setTimeout(function() {
+            loadingOverlay.style.display = 'none'; // Hide loading overlay
+            modalContent.classList.remove('blur'); // Remove blur from modal content
+            successMessage.style.display = 'block'; // Show success message
+
+            setTimeout(function() {
+                successMessage.style.display = 'none'; // Hide success message after 2 seconds
+            }, 2000);
+        }, 1000); // Adjust this timeout to the expected download duration
+
+        // Clean up the link after download starts
+        setTimeout(function() {
+            document.body.removeChild(downloadLink);
+        }, 1000);
+    });
+
+    // Close the modal if user clicks anywhere outside of the modal content
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchLink = document.querySelector('.t-search');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const closeSearch = document.getElementById('closeSearch');
+
+    searchLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        searchOverlay.style.display = 'flex';
+    });
+
+    closeSearch.addEventListener('click', function() {
+        searchOverlay.style.display = 'none';
+    });
+
+    
+    searchOverlay.addEventListener('click', function(e) {
+        if (e.target === searchOverlay) {
+            searchOverlay.style.display = 'none';
+        }
+    });
+
+    // Prevent form submission (just for demonstration)
+    const searchForm = document.getElementById('searchForm');
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        //search logic here
+        let searchTerm = document.getElementById('searchInput').value;
+        console.log('Searching for:', searchTerm);
+        // Implement  search functionality
+        
+    });
+});
+
+
+
+
+
+ //library book adding
+
+
+ document.addEventListener('DOMContentLoaded', () => {
+    // Function to display popup message
+    function showPopup(message) {
+        const popup = document.getElementById('popupMessage');
+        popup.textContent = message;
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 800); // Hide after 3 seconds
+    }
+
+    // Check if user is logged in
+    const isLoggedIn = () => localStorage.getItem('loggedIn') === 'true';
+
+    // Add event listener to login modal close button
+    const closeModalButton = document.querySelector('.close-login-modal');
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
+            document.getElementById('loginModal').style.display = 'none';
+        });
+    }
+
+    // Add event listener to login form
+    const loginForm = document.querySelector('#loginModal form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = event.target.username.value;
+            const password = event.target.password.value;
+            if (username === 'user' && password === 'password') {
+                localStorage.setItem('loggedIn', 'true');
+                document.getElementById('loginModal').style.display = 'none';
+            } else {
+                alert('Invalid credentials');
+            }
+        });
+    }
+
+    // Add event listener to heart icons
+    const heartIcons = document.querySelectorAll('.add-to-library');
+    heartIcons.forEach(icon => {
+        icon.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (!isLoggedIn()) {
+                document.getElementById('loginModal').style.display = 'block';
+                return;
+            }
+            const bookLink = icon.closest('.item').querySelector('.book-link');
+            const book = {
+                title: bookLink.getAttribute('data-title'),
+                author: bookLink.getAttribute('data-author'),
+                price: bookLink.getAttribute('data-price'),
+                rating: bookLink.getAttribute('data-rating'),
+                downloads: bookLink.getAttribute('data-downloads'),
+                discount: bookLink.getAttribute('data-discount'),
+                description: bookLink.getAttribute('data-description'),
+                image: bookLink.getAttribute('data-image')
+            };
+            addToLibrary(book);
+        });
+    });
+
+    // Function to add book to library
+    function addToLibrary(book) {
+        let library = JSON.parse(localStorage.getItem('library')) || [];
+        if (!library.some(b => b.title === book.title)) {
+            library.push(book);
+            localStorage.setItem('library', JSON.stringify(library));
+            showPopup('Book added to library');
+        } else {
+            showPopup('Book already in library');
+        }
+    }
+
+    // Display books in the library
+    const libraryContainer = document.querySelector('.library-container');
+    if (libraryContainer) {
+        let library = JSON.parse(localStorage.getItem('library')) || [];
+        if (library.length === 0) {
+            libraryContainer.innerHTML = '<p>Your library is empty. Books added to your library will appear here.</p>';
+        } else {
+            library.forEach(book => {
+                const bookItem = document.createElement('div');
+                bookItem.classList.add('item');
+                bookItem.innerHTML = `
+                    <div class="media">
+                        <div class="thumbnail object-cover">
+                            <img src="${book.image}" alt="${book.title}">
+                        </div>
+                        <div class="hoverable">
+                            <ul>
+                                <li class="active"><a href="#" class="add-to-library"><i class="ri-heart-line"></i></a></li>
+                                <li><a href="#"><i class="ri-eye-line"></i></a></li>
+                                <li><a href="#"><i class="ri-shuffle-line"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="discount circle flexcenter"><span>${book.discount}</span></div>
+                    </div>
+                    <div class="content">
+                        <h3 class="main-links">${book.title}</h3>
+                        <div class="rating">
+                            <div class="stars"></div>
+                            <span class="mini-text">(${book.rating})</span>
+                        </div>
+                        <div class="price">
+                            <span class="current">${book.price}</span>
+                            <span class="normal mini-text">Ksh 1500</span>
+                        </div>
+                        <div class="mini-text">
+                            <p>${book.downloads} downloads</p>
+                            <p>${book.author}</p>
+                        </div>
+                    </div>
+                `;
+                libraryContainer.appendChild(bookItem);
+            });
+        }
+    }
+});
+
