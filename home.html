@@ -1822,9 +1822,10 @@
 
 </main>
 
-<div id="myModal" class="modal">
+<!-- Book Details Modal -->
+<div id="bookDetailsModal" class="modal">
     <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close close-details">&times;</span>
         
         <!-- Book Image and Details -->
         <div class="modal-details">
@@ -1838,19 +1839,25 @@
             
             <div class="modal-buttons">
                 <button id="modal-download">Download PDF</button>
-                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button>
+                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard Copy</a></button>
                 <button id="read-book">Read Book</button>
             </div>
         </div>
-        
-        <!-- Reading Mode (Flipping Book) -->
-        <div class="book-flip-container" style="display:none;">
+    </div>
+</div>
+
+<!-- Flipbook Reader Modal -->
+<div id="flipbookModal" class="modal" >
+    <div class="modal-content-fullscreen">
+        <span class="close close-flipbook">&times;</span>
+        <div class="flipbook-container">
             <div class="flipbook"></div>
         </div>
     </div>
 </div>
 
-<div id="loading-overlay" class="loading-overlay">
+
+<div id="loading-overlay" class="loading-overlay" style="display: none;">
     <div class="loader-container">
         <div class="loader"></div>
         <div class="loading-text">Downloading...</div>
@@ -2300,15 +2307,12 @@
         }
     });
 
-    //FLIPBOOK FUNCTIONALITY
-
-
     document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('myModal');
-    const closeModalBtn = document.querySelector('.close');
+    const bookDetailsModal = document.getElementById('bookDetailsModal');
+    const flipbookModal = document.getElementById('flipbookModal');
+    const closeDetailsBtn = document.querySelector('.close-details');
+    const closeFlipbookBtn = document.querySelector('.close-flipbook');
     const readBookBtn = document.getElementById('read-book');
-    const modalDetails = document.querySelector('.modal-details');
-    const bookFlipContainer = document.querySelector('.book-flip-container');
     const flipbook = document.querySelector('.flipbook');
     let pdfDoc = null;
 
@@ -2317,7 +2321,7 @@
     bookLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            modal.style.display = "block";
+            bookDetailsModal.style.display = "block";
             
             // Populate modal with book details
             document.getElementById('modal-image').src = link.getAttribute('data-image');
@@ -2330,7 +2334,7 @@
             document.getElementById('modal-download').setAttribute('href', link.getAttribute('data-download'));
             document.getElementById('modal-checkout').setAttribute('href', link.getAttribute('data-amazon'));
             
-            // Load PDF URL for reading mode
+            // Set PDF URL for reading mode
             const pdfUrl = link.getAttribute('data-download');
             loadPdf(pdfUrl);
         });
@@ -2349,9 +2353,10 @@
 
             // Initialize Turn.js after rendering all pages
             $(flipbook).turn({
-                width: 600,
-                height: 400,
-                autoCenter: true
+                width: 900,
+                height: 600,
+                autoCenter: true,
+                display: window.innerWidth > 768 ? 'double' : 'single' // Two pages on larger screens
             });
         });
     };
@@ -2380,18 +2385,20 @@
         });
     };
 
-    // Close modal button
-    closeModalBtn.onclick = () => {
-        modal.style.display = "none";
-        $(flipbook).turn("destroy");  // Destroy the flipbook instance
-        bookFlipContainer.style.display = "none";  // Hide reading mode
-        modalDetails.style.display = "block";  // Show details section
+    // Open flipbook modal and hide details modal
+    readBookBtn.onclick = () => {
+        bookDetailsModal.style.display = "none";
+        flipbookModal.style.display = "flex";  // Show flipbook modal
     };
 
-    // Open the reading mode when "Read Book" button is clicked
-    readBookBtn.onclick = () => {
-        modalDetails.style.display = "none";  // Hide details section
-        bookFlipContainer.style.display = "block";  // Show reading mode
+    // Close buttons handlers
+    closeDetailsBtn.onclick = () => {
+        bookDetailsModal.style.display = "none";
+    };
+
+    closeFlipbookBtn.onclick = () => {
+        flipbookModal.style.display = "none";
+        $(flipbook).turn("destroy");  // Destroy the flipbook instance
     };
 });
 
