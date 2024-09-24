@@ -1822,11 +1822,12 @@
 
 </main>
 
-<div id="myModal" class="modal">
+<!-- Book Details Modal -->
+<div id="detailsModal" class="modal">
     <div class="modal-content">
+        <span class="close">&times;</span>
         <img id="modal-image" src="#" alt="Book Image">
         <div class="modal-details">
-            <span class="close">&times;</span>
             <h2 id="modal-title">Book Title</h2>
             <p><strong>Author:</strong> <span id="modal-author">Author Name</span></p>
             <p><strong>Price:</strong> <span id="modal-price">Ksh 0</span></p>
@@ -1834,12 +1835,24 @@
             <p><strong>Downloads:</strong> <span id="modal-downloads">0</span></p>
             <p><strong>Description:</strong> <span id="modal-description">This is a brief description of the book.</span></p>
             <div class="modal-buttons">
+                <button id="modal-read">Read</button>
                 <button id="modal-download">Download</button>
-                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard copy</a></button>
+                <button><a href="#" id="modal-checkout" class="checkout">Buy Hard Copy</a></button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Reading Modal -->
+<div id="readingModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="book-flipper" class="flipper">
+            <!-- Page flipping container here -->
+        </div>
+    </div>
+</div>
+
 
 <div id="loading-overlay" class="loading-overlay">
     <div class="loader-container">
@@ -2291,6 +2304,86 @@
         }
     });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const detailsModal = document.getElementById('detailsModal');
+    const readingModal = document.getElementById('readingModal');
+    const bookItems = document.querySelectorAll('.book-link');
+    const closeButtons = document.querySelectorAll('.modal .close');
+    
+    let selectedBook = null;
+
+    // Function to show the details modal
+    function showDetailsModal(book) {
+        selectedBook = book;
+        document.getElementById('modal-title').innerText = book.title;
+        document.getElementById('modal-author').innerText = book.author;
+        document.getElementById('modal-price').innerText = book.price;
+        document.getElementById('modal-rating').innerText = book.rating;
+        document.getElementById('modal-downloads').innerText = book.downloads;
+        document.getElementById('modal-description').innerText = book.description;
+        document.getElementById('modal-image').src = book.image;
+        
+        detailsModal.style.display = 'block';
+    }
+
+    // Function to show the reading modal with flipping functionality
+    function showReadingModal(book) {
+        readingModal.style.display = 'block';
+        
+        // Integrate PDF flipping functionality here using pdfjs or similar library
+        const url = book.download;
+        renderPDFInFlipView(url);
+    }
+
+    // Event listeners for book items to show details modal
+    bookItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const book = {
+                title: item.dataset.title,
+                author: item.dataset.author,
+                price: item.dataset.price,
+                rating: item.dataset.rating,
+                downloads: item.dataset.downloads,
+                description: item.dataset.description,
+                image: item.dataset.image,
+                download: item.dataset.download,
+            };
+            showDetailsModal(book);
+        });
+    });
+
+    // Event listener for the Read button to show reading modal
+    document.getElementById('modal-read').addEventListener('click', () => {
+        detailsModal.style.display = 'none';
+        if (selectedBook) {
+            showReadingModal(selectedBook);
+        }
+    });
+
+    // Close modals
+    closeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            detailsModal.style.display = 'none';
+            readingModal.style.display = 'none';
+        });
+    });
+
+    // Close modal if clicked outside of content
+    window.addEventListener('click', (event) => {
+        if (event.target === detailsModal) {
+            detailsModal.style.display = 'none';
+        } else if (event.target === readingModal) {
+            readingModal.style.display = 'none';
+        }
+    });
+
+    // Function to render PDF in flip view (using pdfjs or another library)
+    function renderPDFInFlipView(url) {
+        // Use a library to render PDF with flip functionality
+        // For example, integrate pdfjs or turn.js here
+    }
+});
 
 
 
@@ -2309,6 +2402,10 @@
 
 
 
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<!-- Turn.js -->
+<script src="https://cdn.jsdelivr.net/turn.js/4/turn.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>    
 <script src="js/script.js"></script>
